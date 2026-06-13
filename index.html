@@ -394,6 +394,19 @@
   // Blocco tasto destro e selezione testo
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
   document.addEventListener('selectstart', function(e){ e.preventDefault(); });
+
+  // UTM passthrough
+  document.addEventListener('DOMContentLoaded', function() {
+    var params = new URLSearchParams(window.location.search);
+    var utm_source   = params.get('utm_source')   || 'direct';
+    var utm_medium   = params.get('utm_medium')   || 'none';
+    var utm_campaign = params.get('utm_campaign') || 'daniel';
+    var utmString = '?utm_source=' + utm_source + '&utm_medium=' + utm_medium + '&utm_campaign=' + utm_campaign;
+    var cardCL = document.getElementById('card-cl');
+    if (cardCL) cardCL.href = 'https://cocktaillegend.app' + utmString;
+    var cardBC = document.getElementById('card-bc');
+    if (cardBC) cardBC.href = 'https://danielsportelli.it/catering' + utmString;
+  });
 </script>
 
 <div class="page">
@@ -413,7 +426,7 @@
   <p class="section-label">Progetti</p>
   <div class="cta-stack">
 
-    <a href="https://cocktaillegend.app" class="cta-card amber" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_cocktail_legend',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'cocktail_legend'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'cocktail_legend'});">
+    <a id="card-cl" href="https://cocktaillegend.app" class="cta-card amber" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_cocktail_legend',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'cocktail_legend'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'cocktail_legend'});">
       <div class="cta-icon">📱</div>
       <div class="cta-text">
         <div class="cta-title">Cocktail Legend</div>
@@ -422,7 +435,7 @@
       <span class="cta-arrow">→</span>
     </a>
 
-    <a href="https://danielsportelli.it/catering" class="cta-card blue" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_bar_catering',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'bar_catering'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'bar_catering'});">
+    <a id="card-bc" href="https://danielsportelli.it/catering" class="cta-card blue" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_bar_catering',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'bar_catering'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'bar_catering'});">
       <div class="cta-icon">🥂</div>
       <div class="cta-text">
         <div class="cta-title">Bar Catering</div>
