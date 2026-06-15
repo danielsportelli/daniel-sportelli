@@ -128,10 +128,15 @@
   .page {
     position: relative;
     z-index: 1;
-    max-width: 480px;
+    max-width: 560px;
     margin: 0 auto;
     padding: 0 1.25rem;
     padding-bottom: max(3rem, env(safe-area-inset-bottom, 3rem));
+  }
+
+  @media (min-width: 768px) {
+    .page { max-width: 600px; padding: 0 2rem; }
+    .hero { padding-top: max(5rem, env(safe-area-inset-top, 5rem)); }
   }
 
   /* ── HERO ── */
@@ -408,7 +413,7 @@
     var cardCL = document.getElementById('card-cl');
     if (cardCL) cardCL.href = 'https://cocktaillegend.app' + utmString;
     var cardBC = document.getElementById('card-bc');
-    if (cardBC) cardBC.href = 'https://danielsportelli.it/catering' + utmString;
+    if (cardBC) cardBC.href = 'https://danielsportelli.it/bar-catering.html' + utmString;
   });
 </script>
 
@@ -489,7 +494,8 @@
   </div>
 
   <!-- FOOTER -->
-  <div class="footer">© Daniel Sportelli</div>
+  <div class="footer">© <span id="footer-year"></span> Daniel Sportelli</div>
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
 
 </div>
 
