@@ -435,7 +435,7 @@
       <span class="cta-arrow">→</span>
     </a>
 
-    <a id="card-bc" href="https://danielsportelli.it/catering" class="cta-card blue" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_bar_catering',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'bar_catering'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'bar_catering'});">
+    <a id="card-bc" href="https://danielsportelli.it/bar-catering.html" class="cta-card blue" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_bar_catering',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'bar_catering'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'bar_catering'});">
       <div class="cta-icon">🥂</div>
       <div class="cta-text">
         <div class="cta-title">Bar Catering</div>
@@ -489,5 +489,35 @@
   <div class="footer">© Daniel Sportelli</div>
 
 </div>
+
+<script>
+// UTM passthrough - propaga i parametri UTM ai link delle card
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  var utmParams = new URLSearchParams();
+  var hasUtm = false;
+  utmKeys.forEach(function(k) {
+    if (params.get(k)) { utmParams.set(k, params.get(k)); hasUtm = true; }
+  });
+
+  if (hasUtm) {
+    // CL card - append UTMs to cocktaillegend.app
+    var clCard = document.getElementById('card-cl');
+    if (clCard) {
+      var clUrl = new URL(clCard.href);
+      utmParams.forEach(function(v, k) { clUrl.searchParams.set(k, v); });
+      clCard.href = clUrl.toString();
+    }
+    // BC card - append UTMs to bar-catering page
+    var bcCard = document.getElementById('card-bc');
+    if (bcCard) {
+      var bcUrl = new URL(bcCard.href);
+      utmParams.forEach(function(v, k) { bcUrl.searchParams.set(k, v); });
+      bcCard.href = bcUrl.toString();
+    }
+  }
+})();
+</script>
 </body>
 </html>
