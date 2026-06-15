@@ -15,6 +15,9 @@
 <meta property="og:image" content="https://danielsportelli.it/og-bar-catering.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image" content="https://danielsportelli.it/og-bar-catering.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bar Catering — Daniel Sportelli">
 <meta name="twitter:description" content="Servizio cocktail professionale per eventi privati, aziendali e team building.">
@@ -2715,32 +2718,26 @@
 
   function aggiornaTotale() {
     var selPrice = document.getElementById('ac-selected-price');
+
     if (!stato.formulaSelezionata) {
       if (selPrice) selPrice.style.display = 'none';
       return;
     }
 
-    var righe = [];
-    var totale = 0;
-    var formulaLabel = '';
-
     if (stato.formulaSelezionata === 'ob') {
+      // Hide AC price card
+      if (selPrice) selPrice.style.display = 'none';
+      // Track
       var ob = prezzoOpenBar(stato.ospiti, stato.provExtra);
-      totale = ob;
-      formulaLabel = 'Open Bar · ' + stato.ospiti + ' ospiti · ' + stato.provNome;
-      righe.push({ label: 'Servizio Open Bar', val: (1300 + stato.provExtra).toLocaleString('it-IT') + '€' });
-      if (stato.provExtra > 0) righe.push({ label: 'Supplemento trasferta (' + stato.provNome + ')', val: '+' + stato.provExtra + '€' });
-      
+      if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: ob });
+
     } else {
+      // Show AC price card
       var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
       var pkgs = pacchetti(stato.ospiti);
       var p = pkgs[idx];
       var prezzoBase = prezzoAConsumo(p.drink, stato.provExtra);
-      totale = prezzoBase;
-      formulaLabel = p.nome + ' · ' + stato.provNome;
-      righe.push({ label: p.nome, val: prezzoBase.toLocaleString('it-IT') + '€' });
-      // Update ac-selected-price card
-      var selPrice = document.getElementById('ac-selected-price');
+
       var selLabel = document.getElementById('ac-selected-label');
       var selNum = document.getElementById('ac-selected-num');
       if (selPrice && selLabel && selNum) {
@@ -2748,27 +2745,8 @@
         selNum.textContent = prezzoBase.toLocaleString('it-IT') + '€';
         selPrice.style.display = 'block';
       }
+      if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase });
     }
-
-    // Extra info-only, no state tracking
-
-    // Render
-    
-
-    var rowsHtml = '';
-    righe.forEach(function(r, i) {
-      var isMain = i === righe.length - 1 && righe.length > 1;
-      rowsHtml += '<div class="totale-row"><span>' + r.label + '</span><span>' + r.val + '</span></div>';
-    });
-    if (righe.length > 1) {
-      rowsHtml += '<div class="totale-row main"><span>Totale stimato</span><span></span></div>';
-    }
-    
-    
-    
-
-    // Track
-    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: totale });
   }
 
   function mostraForm() {
