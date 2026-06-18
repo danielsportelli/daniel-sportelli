@@ -1905,7 +1905,7 @@
     <div style="text-align:center;margin-bottom:1.5rem;">
       <p style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue-l);margin-bottom:0.5rem;">Preventivo istantaneo</p>
       <p style="font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;letter-spacing:-0.03em;color:var(--txt);margin-bottom:0.5rem;">Quanto costa il <span style="color:var(--amber);">tuo evento?</span></p>
-      <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:0.75rem;">Inserisci gli ospiti, seleziona la provincia e scegli la formula.</p>
+      <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:0.75rem;">Inserisci gli ospiti, seleziona la provincia e scegli il pacchetto.</p>
       <div style="font-size:2.5rem;color:var(--amber);line-height:1;">↓</div>
     </div>
 <!-- CONFIGURATORE -->
@@ -1943,8 +1943,7 @@
     <div style="text-align:center;padding:2rem 0 1.5rem;">
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Pacchetti</div>
       <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--txt);margin-bottom:0.4rem;">Scegli il pacchetto giusto.</div>
-      <div style="font-size:0.85rem;color:var(--txt2);">Essenziale, Standard o Elite — il prezzo si aggiorna in base agli ospiti.</div>
-      <div style="font-size:2.5rem;color:var(--amber);margin-top:0.75rem;line-height:1;">↓</div>
+      <div style="font-size:2.5rem;color:var(--amber);margin-top:0.25rem;line-height:1;">↓</div>
     </div>
 
     <div class="formule-grid">
@@ -2168,7 +2167,7 @@
     var selLabel = document.getElementById('ac-selected-label');
     var selNum = document.getElementById('ac-selected-num');
     if (selPrice && selLabel && selNum) {
-      selLabel.textContent = p.nome + ' · ' + stato.ospiti + ' ospiti · ' + stato.provNome + (stato.provExtra > 0 ? ' (+140€ trasferta)' : '');
+      selLabel.textContent = p.nome + ' · ' + stato.ospiti + ' ospiti · ' + stato.provNome;
       selNum.textContent = prezzoBase.toLocaleString('it-IT') + '€';
       selPrice.style.display = 'block';
     }
