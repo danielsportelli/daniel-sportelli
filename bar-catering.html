@@ -1052,7 +1052,7 @@
 
 
 
-  /* Open bar card */
+  /* Card calcolatore */
   .ob-card {
     background: linear-gradient(145deg, rgba(245,158,11,0.18) 0%, rgba(15,23,42,0.95) 100%);
     border: 1px solid rgba(245,158,11,0.35);
@@ -1646,6 +1646,8 @@
     <h1>Il tuo evento,<br><span>senza pensieri.</span></h1>
     <p class="hero-sub">Scegli la formula, al resto pensiamo noi.</p>
     <a href="#preventivo" class="hero-cta" onclick="event.preventDefault();document.getElementById('calc-anchor').scrollIntoView({behavior:'smooth', block:'start'});">Calcola il preventivo →</a>
+    <p style="font-size:0.72rem;color:#475569;margin-top:1.25rem;letter-spacing:0.04em;">Servizio attivo in tutta la Lombardia</p>
+    <p style="font-size:0.78rem;color:#64748b;margin-top:0.5rem;font-style:italic;">Professionalità da 15 anni. Zero improvvisazione.</p>
   </div>
 
   <!-- ── CAROSELLO PLACEHOLDER ── -->
@@ -1676,12 +1678,6 @@
   </div>
 
   <!-- QUOTE -->
-  <div class="quote-wrap section">
-    <span class="quote-mark">&ldquo;</span>
-    <p class="quote-text">Professionalità da 15 anni.<br>Zero improvvisazione.</p>
-  </div>
-
-
   <!-- ── IL SERVIZIO ── -->
   <div class="section">
     <p class="section-label">Il servizio</p>
@@ -1849,7 +1845,7 @@
         </div>
         <ul class="fit-list">
           <li>Ti sei già affidato a un catering completo</li>
-          <li>Cerchi un open bar per 200+ persone</li>
+          <li>Cerchi un servizio per 200+ persone</li>
           <li>Vuoi una mega struttura bar</li>
           <li>Hai bisogno di allestimenti elaborati</li>
         </ul>
@@ -1927,11 +1923,17 @@
     <div class="config-title">Seleziona la provincia dell'evento</div>
     <div class="provincia-grid">
       <button class="prov-btn active" onclick="setProv(this, 'BG', 0)">BG</button>
-      <button class="prov-btn" onclick="setProv(this, 'MI', 100)">MI</button>
-      <button class="prov-btn" onclick="setProv(this, 'BS', 100)">BS</button>
-      <button class="prov-btn" onclick="setProv(this, 'LC', 100)">LC</button>
-      <button class="prov-btn" onclick="setProv(this, 'CR', 100)">CR</button>
-      <button class="prov-btn" onclick="setProv(this, 'MB', 100)">MB</button>
+      <button class="prov-btn" onclick="setProv(this, 'MI', 71)">MI</button>
+      <button class="prov-btn" onclick="setProv(this, 'BS', 71)">BS</button>
+      <button class="prov-btn" onclick="setProv(this, 'LC', 71)">LC</button>
+      <button class="prov-btn" onclick="setProv(this, 'CR', 71)">CR</button>
+      <button class="prov-btn" onclick="setProv(this, 'MB', 71)">MB</button>
+      <button class="prov-btn" onclick="setProv(this, 'CO', 71)">CO</button>
+      <button class="prov-btn" onclick="setProv(this, 'VA', 71)">VA</button>
+      <button class="prov-btn" onclick="setProv(this, 'PV', 71)">PV</button>
+      <button class="prov-btn" onclick="setProv(this, 'MN', 71)">MN</button>
+      <button class="prov-btn" onclick="setProv(this, 'SO', 71)">SO</button>
+      <button class="prov-btn" onclick="setProv(this, 'LO', 71)">LO</button>
     </div>
   </div>
 
@@ -1939,78 +1941,50 @@
   <div class="risultati visible" id="risultati">
 
     <div style="text-align:center;padding:2rem 0 1.5rem;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Formula</div>
-      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--txt);margin-bottom:0.4rem;">Due formule, stessa qualità.</div>
-      <div style="font-size:0.85rem;color:var(--txt2);">Scegli tra drink illimitati o consumazioni predefinite.</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Pacchetti</div>
+      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--txt);margin-bottom:0.4rem;">Scegli il pacchetto giusto.</div>
+      <div style="font-size:0.85rem;color:var(--txt2);">Essenziale, Standard o Elite — il prezzo si aggiorna in base agli ospiti.</div>
       <div style="font-size:2.5rem;color:var(--amber);margin-top:0.75rem;line-height:1;">↓</div>
     </div>
 
     <div class="formule-grid">
-
-      <!-- OPEN BAR -->
-      <div class="ob-card">
-        <div class="ob-select-indicator">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <!-- Riga superiore: prezzo sinistra + incluso destra -->
-        <div style="display:flex;flex-direction:row;gap:1.25rem;align-items:flex-start;position:relative;z-index:1;">
-          <div style="flex:1;">
-            <div class="ob-badge">Open Bar</div>
-            <div class="ob-title">Drink illimitati</div>
-            <div class="ob-subtitle" style="color:var(--dim);font-size:0.72rem;margin-bottom:1rem;line-height:1.4;">3 ore · 2 barman · tutto incluso</div>
-            <div class="ob-price" id="ob-price">—</div>
-            <div class="ob-price-note" id="ob-note"></div>
-
-          </div>
-          <div class="ob-incluso">
-            <div class="ob-incluso-title">Incluso</div>
-            <ul class="ob-incluso-list">
-              <li>Postazione premium</li>
-              <li>Trasporto</li>
-              <li>Montaggio</li>
-              <li>Bicchieri in vetro</li>
-              <li>Ghiaccio</li>
-              <li>Drink list standard</li>
-              <li>2 barman pro</li>
-              <li>Pulizia finale</li>
-            </ul>
-          </div>
-        </div>
-        <!-- Extra sotto full width -->
-        <div style="padding-top:0.75rem;border-top:1px solid rgba(245,158,11,0.15);position:relative;z-index:1;">
-          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.4rem;">Extra opzionali</div>
-          <div style="font-size:0.75rem;color:var(--txt2);line-height:1.8;">
-            Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+250€</span> &nbsp;·&nbsp;
-            Drink list su misura <span style="color:var(--amber);font-weight:700;">+150€</span>
-          </div>
-          <div style="font-size:0.65rem;color:var(--dim);margin-top:0.6rem;opacity:0.7;">Tutti i prezzi si intendono IVA e tasse incluse</div>
-        </div>
-      </div>
-
-      <!-- A CONSUMO -->      <!-- A CONSUMO -->
+      <!-- CALCOLATORE -->
       <div class="ac-card">
-        <div class="ac-badge">A consumo</div>
+        <div class="ac-badge">Bar Catering</div>
         <div class="ac-title">Scegli il pacchetto</div>
         <div class="ac-subtitle">Servizio 3 ore · 2 barman<br><span style="font-size:0.65rem;opacity:0.7;">1 consumazione = 1 drink, shot, bibita o acqua</span></div>
-        <div id="ac-packages"></div>
-        <div id="ac-selected-price" style="display:none;margin-top:0.75rem;padding:1rem;border-radius:12px;background:rgba(37,99,235,0.1);border:1px solid rgba(96,165,250,0.2);position:relative;z-index:1;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue-l);">Preventivo stimato</div>
-          </div>
-          <div id="ac-selected-label" style="font-size:0.8rem;color:var(--txt2);margin-bottom:1rem;"></div>
-          <div id="ac-selected-num" style="font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:var(--txt);line-height:1;margin-bottom:1rem;"></div>
 
-          <div style="padding-top:0.6rem;border-top:1px solid rgba(96,165,250,0.12);">
+        <!-- Lista incluso -->
+        <div style="margin:0.75rem 0 1rem;padding:0.75rem 1rem;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);">
+          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Incluso in tutti i pacchetti</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem 0.5rem;">
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Postazione premium</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Trasporto</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Montaggio</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Bicchieri in vetro</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ghiaccio</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Drink list standard</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 barman pro</div>
+            <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Pulizia finale</div>
+          </div>
+        </div>
+
+        <div id="ac-packages"></div>
+
+        <div id="ac-selected-price" style="display:none;margin-top:0.75rem;padding:1rem;border-radius:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);position:relative;z-index:1;">
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:0.5rem;">Preventivo stimato</div>
+          <div id="ac-selected-label" style="font-size:0.8rem;color:var(--txt2);margin-bottom:0.5rem;"></div>
+          <div id="ac-selected-num" style="font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:var(--txt);line-height:1;margin-bottom:1rem;"></div>
+          <div style="padding-top:0.6rem;border-top:1px solid rgba(245,158,11,0.15);">
             <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.35rem;">Extra opzionali</div>
-            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.8;">
-              Ora aggiuntiva <span style="color:var(--blue-l);font-weight:700;">+250€</span><br>
-              +50 consumazioni <span style="color:var(--blue-l);font-weight:700;">+250€</span><br>
-              Drink list su misura <span style="color:var(--blue-l);font-weight:700;">+150€</span>
+            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.9;">
+              Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+150€</span><br>
+              +25 consumazioni <span style="color:var(--amber);font-weight:700;">+100€</span><br>
+              Drink list su misura <span style="color:var(--amber);font-weight:700;">+150€</span>
             </div>
           </div>
           <div style="font-size:0.65rem;color:var(--dim);margin-top:0.6rem;opacity:0.7;">Tutti i prezzi si intendono IVA e tasse incluse</div>
         </div>
-        <div class="ac-banner" id="ac-banner">Con questa configurazione <strong>l'Open Bar è più conveniente</strong> — tutti i pacchetti a consumo superano il suo prezzo.</div>
       </div>
 
     </div>
@@ -2107,39 +2081,25 @@
     ospiti: 50,
     provExtra: 0,
     provNome: 'BG',
-    formulaSelezionata: null, // 'ob' o 'ac-X'
-    extra: { ora: false, drink50: false, drinkList: false }
+    formulaSelezionata: null, // 'ac-0' | 'ac-1' | 'ac-2'
+    extra: { ora: false, consumazioni25: false, drinkList: false }
   };
 
   // ── LOGICA PREZZI ──
-  function prezzoOpenBar(ospiti, provExtra) {
-    // Prezzo fisso di listino
-    return 1299 + provExtra;
+  // Formula: (850 + N × cons/persona × 1.20) / 0.7091 arrotondato a 10€
+  // 850 = 200 costi fissi + 650 (parte residua per raggiungere 600€ netti dopo INPS+tasse)
+  function calcolaPrezzo(ospiti, consPerPersona, provExtra) {
+    var costoVar = ospiti * consPerPersona * 1.20;
+    var lordo = (850 + costoVar + provExtra) / 0.7091;
+    return Math.ceil(lordo / 10) * 10;
   }
 
-  function prezzoAConsumo(drink, provExtra) {
-    // Fissi ridotti (750) + beverage (1.27/drink) + margine (150) + trasferta
-    var costo = 750 + (drink * 1.27) + 150 + provExtra;
-    // Arrotonda al 9
-    return Math.ceil(costo / 10) * 10 - 1;
-  }
-
-  function arrotonda5(n) {
-    return Math.round(n / 5) * 5;
-  }
-
-  function pacchetti(ospiti) {
-    var d1 = arrotonda5(ospiti * 1);
-    var d2 = arrotonda5(ospiti * 1.5);
-    var d3 = arrotonda5(ospiti * 2);
-    var d4 = arrotonda5(ospiti * 3);
-    return [
-      { nome: d1 + ' consumazioni', drink: d1, label: '1 consumazione/persona' },
-      { nome: d2 + ' consumazioni', drink: d2, label: '1,5 consumazioni/persona' },
-      { nome: d3 + ' consumazioni', drink: d3, label: '2 consumazioni/persona' },
-      { nome: d4 + ' consumazioni', drink: d4, label: '3 consumazioni/persona' },
-    ];
-  }
+  // 3 pacchetti fissi
+  var PACCHETTI = [
+    { id: 'basic',   nome: 'Basic x1',  cons: 1, badge: null },
+    { id: 'party',   nome: 'Party x2',  cons: 2, badge: 'CONSIGLIATO' },
+    { id: 'event',   nome: 'Event x3',  cons: 3, badge: null },
+  ];
 
   // ── AGGIORNA UI ──
   function aggiorna() {
@@ -2159,46 +2119,37 @@
   }
 
   function renderFormule() {
-    var ob = prezzoOpenBar(stato.ospiti, stato.provExtra);
-    document.getElementById('ob-price').textContent = ob.toLocaleString('it-IT') + '€';
-    document.getElementById('ob-note').textContent = stato.provExtra > 0 ? 'Supplemento trasferta +100€' : '';
-
-    var pkgs = pacchetti(stato.ospiti);
     var html = '';
-    pkgs.forEach(function(p, i) {
-      var prezzo = prezzoAConsumo(p.drink, stato.provExtra);
+    PACCHETTI.forEach(function(p, i) {
+      var prezzo = calcolaPrezzo(stato.ospiti, p.cons, stato.provExtra);
       var isSelected = stato.formulaSelezionata === 'ac-' + i;
-      var noteOB = '';
-      html += '<div class="ac-pkg' + (isSelected ? ' selected' : '') + '" style="margin-bottom:0.5rem" onclick="selezionaAC(' + i + ')">';
-      html += '<div class="ac-pkg-left"><div class="ac-pkg-name">' + p.nome + noteOB + '</div><div class="ac-pkg-drinks">' + p.label + '</div></div>';
-      html += '<div class="ac-pkg-price">' + prezzo.toLocaleString('it-IT') + '€</div>';
+      var totCons = stato.ospiti * p.cons;
+
+      html += '<div style="position:relative;margin-bottom:0.5rem;">';
+      html += '<div class="ac-pkg' + (isSelected ? ' selected' : '') + '" onclick="selezionaAC(' + i + ')" style="display:flex;align-items:center;gap:0.75rem;position:relative;overflow:hidden;">';
+
+      // Radio button
+      html += '<div style="width:20px;height:20px;border-radius:50%;border:2px solid ' + (isSelected ? 'var(--amber)' : 'rgba(255,255,255,0.2)') + ';background:' + (isSelected ? 'var(--amber)' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;">';
+      if (isSelected) {
+        html += '<svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>';
+      }
       html += '</div>';
+
+      // Testo — solo totale consumazioni
+      html += '<div class="ac-pkg-left" style="flex:1;"><div class="ac-pkg-name" style="display:flex;align-items:center;gap:0.4rem;">' + p.nome;
+      if (p.badge) {
+        html += '<span style="background:var(--amber);color:#0a0f1e;font-size:0.45rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:4px;line-height:1.4;">' + p.badge + '</span>';
+      }
+      html += '</div>';
+      html += '<div class="ac-pkg-drinks">' + totCons + ' consumazioni totali</div></div>';
+      html += '<div class="ac-pkg-price">' + prezzo.toLocaleString('it-IT') + '€</div>';
+      html += '</div></div>';
     });
     document.getElementById('ac-packages').innerHTML = html;
-
-    // extras info-only
   }
-
-  function selezionaOB() {
-    stato.formulaSelezionata = 'ob';
-    var selPrice = document.getElementById('ac-selected-price');
-    if (selPrice) selPrice.style.display = 'none';
-    document.querySelectorAll('.ac-pkg').forEach(function(p){ p.classList.remove('selected'); });
-    var obCard = document.querySelector('.ob-card');
-    if (obCard) obCard.classList.add('selected');
-    aggiornaTotale();
-  }
-
-  // make ob-card clickable - wait for DOM
-  document.addEventListener('DOMContentLoaded', function() {
-    var obCard = document.querySelector('.ob-card');
-    if (obCard) obCard.addEventListener('click', selezionaOB);
-  });
 
   function selezionaAC(i) {
     stato.formulaSelezionata = 'ac-' + i;
-    var obCard = document.querySelector('.ob-card');
-    if (obCard) obCard.classList.remove('selected');
     renderFormule();
     aggiornaTotale();
   }
@@ -2207,35 +2158,21 @@
 
   function aggiornaTotale() {
     var selPrice = document.getElementById('ac-selected-price');
-
     if (!stato.formulaSelezionata) {
       if (selPrice) selPrice.style.display = 'none';
       return;
     }
-
-    if (stato.formulaSelezionata === 'ob') {
-      // Hide AC price card
-      if (selPrice) selPrice.style.display = 'none';
-      // Track
-      var ob = prezzoOpenBar(stato.ospiti, stato.provExtra);
-      if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: ob });
-
-    } else {
-      // Show AC price card
-      var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
-      var pkgs = pacchetti(stato.ospiti);
-      var p = pkgs[idx];
-      var prezzoBase = prezzoAConsumo(p.drink, stato.provExtra);
-
-      var selLabel = document.getElementById('ac-selected-label');
-      var selNum = document.getElementById('ac-selected-num');
-      if (selPrice && selLabel && selNum) {
-        selLabel.textContent = p.nome + (stato.provExtra > 0 ? ' · ' + stato.provNome + ' (+100€ trasferta)' : ' · ' + stato.provNome);
-        selNum.textContent = prezzoBase.toLocaleString('it-IT') + '€';
-        selPrice.style.display = 'block';
-      }
-      if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase });
+    var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
+    var p = PACCHETTI[idx];
+    var prezzoBase = calcolaPrezzo(stato.ospiti, p.cons, stato.provExtra);
+    var selLabel = document.getElementById('ac-selected-label');
+    var selNum = document.getElementById('ac-selected-num');
+    if (selPrice && selLabel && selNum) {
+      selLabel.textContent = p.nome + ' · ' + stato.ospiti + ' ospiti · ' + stato.provNome + (stato.provExtra > 0 ? ' (+140€ trasferta)' : '');
+      selNum.textContent = prezzoBase.toLocaleString('it-IT') + '€';
+      selPrice.style.display = 'block';
     }
+    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase });
   }
 
   function mostraForm() {
@@ -2265,16 +2202,14 @@
     // Formatta data in italiano
     var dataFormatted = data ? (function(d){ var p = d.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; })(data) : '';
 
-    // Build preventivo summary — solo consumazioni e prezzo
+    // Build preventivo summary
     var selNum = document.getElementById('ac-selected-num');
     var selLabel = document.getElementById('ac-selected-label');
     var preventivo = '';
-    if (stato.formulaSelezionata === 'ob') {
-      preventivo = 'Open Bar — ' + (1299 + stato.provExtra) + '€';
-    } else if (selNum && selLabel) {
-      // Prendi solo il testo delle consumazioni (es. "55 consumazioni") senza provincia
-      var labelParts = selLabel.textContent.split(' · ');
-      preventivo = (labelParts[0] || selLabel.textContent) + ' — ' + selNum.textContent;
+    if (stato.formulaSelezionata && selNum && selLabel) {
+      var idx2 = parseInt(stato.formulaSelezionata.split('-')[1]);
+      var pkg = PACCHETTI[idx2];
+      preventivo = pkg.nome + ' (' + pkg.cons + ' cons/persona) · ' + stato.ospiti + ' ospiti — ' + selNum.textContent;
     }
 
     var btn = document.querySelector('.cta-btn');
