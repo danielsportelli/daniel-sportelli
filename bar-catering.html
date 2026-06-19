@@ -236,7 +236,7 @@
     border-top: 1px solid var(--brd);
     border-bottom: 1px solid var(--brd);
     padding: 2.5rem 0;
-    margin: 5rem 0 0;
+    margin: 1.5rem 0 0;
   }
 
   .stat-card {
@@ -1629,6 +1629,101 @@
   }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ── WELCOME SCREEN (selezione nazione) ── */
+  .welcome-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    text-align: center;
+  }
+  .welcome-screen.hidden { display: none; }
+  .welcome-headline {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    max-width: 480px;
+  }
+  .welcome-headline span { color: var(--amber); }
+  .welcome-sub {
+    font-size: 0.9rem;
+    color: var(--txt2);
+    margin-bottom: 2.5rem;
+  }
+  .welcome-grid {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 480px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nation-btn {
+    flex: 1;
+    min-width: 180px;
+    background: linear-gradient(145deg, rgba(245,158,11,0.1) 0%, rgba(15,23,42,0.95) 100%);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 18px;
+    padding: 1.75rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Inter', sans-serif;
+  }
+  .nation-btn:active { transform: scale(0.97); }
+  @media (hover: hover) {
+    .nation-btn:hover {
+      border-color: rgba(245,158,11,0.6);
+      box-shadow: 0 8px 30px rgba(245,158,11,0.2);
+      transform: translateY(-2px);
+    }
+  }
+  .nation-flag { display: flex; justify-content: center; margin-bottom: 0.75rem; line-height: 1; }
+  .nation-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--txt);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .nation-sub {
+    font-size: 0.75rem;
+    color: var(--dim);
+    line-height: 1.4;
+  }
+  .main-content { display: none; }
+  .main-content.visible { display: block; }
+
+  /* ── FUORI RANGE BANNER ── */
+  .outofrange-banner {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+    font-size: 0.82rem;
+    color: var(--txt2);
+    line-height: 1.5;
+    text-align: center;
+  }
+  .outofrange-banner.visible { display: block; }
+  .outofrange-banner a { color: var(--amber); font-weight: 700; text-decoration: none; }
+
+  /* ── CHF/EUR conversione ── */
+  .chf-secondary {
+    font-size: 0.85rem;
+    color: var(--dim);
+    margin-top: 0.25rem;
+  }
 </style>
 </head>
 <body>
@@ -1638,15 +1733,39 @@
   document.addEventListener('selectstart', function(e){ e.preventDefault(); });
 </script>
 
-<div class="page">
+<div class="welcome-screen" id="welcome-screen">
+  <p class="welcome-headline">Calcola il preventivo istantaneo per il tuo <span>Bar Catering Premium</span></p>
+  <p class="welcome-sub">Seleziona la nazione in cui si terrà l'evento:</p>
+  <div class="welcome-grid">
+    <button class="nation-btn" onclick="selezionaNazione('IT')">
+      <div class="nation-flag"><svg viewBox="0 0 3 2" width="48" height="32" style="border-radius:4px;"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg></div>
+      <div class="nation-name">ITALIA</div>
+      <div class="nation-sub">Servizio attivo esclusivamente in Lombardia</div>
+    </button>
+    <button class="nation-btn" onclick="selezionaNazione('CH')">
+      <div class="nation-flag"><svg viewBox="0 0 32 32" width="32" height="32" style="border-radius:4px;"><rect width="32" height="32" fill="#d52b1e"/><rect x="13" y="6" width="6" height="20" fill="#fff"/><rect x="6" y="13" width="20" height="6" fill="#fff"/></svg></div>
+      <div class="nation-name">SVIZZERA</div>
+      <div class="nation-sub">Servizio attivo esclusivamente nel Canton Ticino</div>
+    </button>
+  </div>
+</div>
+
+<div class="page main-content" id="main-content">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-top:max(0.5rem, env(safe-area-inset-top, 0.5rem));">
+    <button onclick="tornaSelezioneNazione()" style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.04);border:1px solid var(--brd);border-radius:999px;padding:0.5rem 0.7rem;cursor:pointer;font-family:'Inter',sans-serif;color:var(--txt2);font-size:0.75rem;-webkit-tap-highlight-color:transparent;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="opacity:0.6;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span id="nation-switch-flag" style="display:flex;align-items:center;"></span>
+    </button>
+    <div class="hero-badge" style="margin:0;">Bar Catering</div>
+  </div>
 
   <!-- ── HERO ── -->
-  <div class="hero">
-    <div class="hero-badge" style="margin-top:1.5rem;">Bar Catering</div>
+  <div class="hero" style="padding-top:4rem;">
     <h1>Il tuo evento,<br><span>senza pensieri.</span></h1>
-    <p class="hero-sub">Scegli la formula, al resto pensiamo noi.</p>
+    <p class="hero-sub" id="hero-sub-text">Indica il numero degli ospiti, seleziona il pacchetto, al resto pensiamo noi.</p>
     <a href="#preventivo" class="hero-cta" onclick="event.preventDefault();document.getElementById('calc-anchor').scrollIntoView({behavior:'smooth', block:'start'});">Calcola il preventivo →</a>
-    <p style="font-size:0.72rem;color:#475569;margin-top:1.25rem;letter-spacing:0.04em;">Servizio attivo in tutta la Lombardia</p>
+    <p style="font-size:0.72rem;color:#475569;margin-top:1.25rem;letter-spacing:0.04em;" id="hero-zona-text">Servizio attivo in tutta la Lombardia</p>
     <p style="font-size:0.78rem;color:#64748b;margin-top:0.5rem;font-style:italic;">Professionalità da 15 anni. Zero improvvisazione.</p>
   </div>
 
@@ -1661,7 +1780,7 @@
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-num">100</div>
-      <div class="stat-label">Ospiti max</div>
+      <div class="stat-label">Ospiti</div>
     </div>
     <div class="stat-card">
       <div class="stat-num">3h</div>
@@ -1693,7 +1812,7 @@
               </svg>
             </div>
             <div class="service-title">Postazione dark premium</div>
-            <div class="service-desc">Bancone dall'estetica curata. Il punto focale del tuo evento.</div>
+            <div class="service-desc">Design minimal ed elegante.<br>Essenziale e di impatto.</div>
             <div class="flip-hint">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 16V4a1 1 0 0 1 2 0v6"/>
@@ -1726,7 +1845,7 @@
               </svg>
             </div>
             <div class="service-title">Tutto incluso</div>
-            <div class="service-desc">Dal primo allestimento all'ultimo bicchiere.</div>
+            <div class="service-desc">Trasporto, montaggio, bicchieri, pulizia.<br>Tutto compreso nel prezzo.</div>
             <div class="flip-hint">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 16V4a1 1 0 0 1 2 0v6"/>
@@ -1776,9 +1895,10 @@
               <li>Negroni</li>
               <li>Negroni Sbagliato</li>
               <li>Moscow Mule</li>
-              <li>Gin Tonic / Lemon</li>
-              <li>Vodka Tonic / Lemon</li>
+              <li>Gin Tonic</li>
+              <li>Vodka Lemon</li>
               <li>Cuba Libre</li>
+              <li>Garibaldi Fizz</li>
             </ul>
           </div>
         </div>
@@ -1796,7 +1916,7 @@
               </svg>
             </div>
             <div class="service-title">2 professionisti</div>
-            <div class="service-desc">Un bartender al bancone, uno alla gestione. Zero code.</div>
+            <div class="service-desc">Un bartender al bancone, uno alla gestione.<br>Servizio fluido, attese minime.</div>
             <div class="flip-hint">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 16V4a1 1 0 0 1 2 0v6"/>
@@ -1809,7 +1929,7 @@
             <div class="flip-back-title">Come lavoriamo</div>
             <ul class="flip-back-list">
               <li>Un bartender dedicato al bancone</li>
-              <li>Uno alla gestione e sbarazzo</li>
+              <li>Uno alla gestione e supporto</li>
               <li>Servizio continuo per 3 ore</li>
               <li>Coordinamento interno autonomo</li>
             </ul>
@@ -1862,7 +1982,7 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Calcola il preventivo</div>
-          <div class="step-desc">Usa il calcolatore qui sotto — scegli ospiti, provincia e formula. Vedi subito il prezzo stimato.</div>
+          <div class="step-desc" id="step1-desc">Usa il calcolatore qui sotto — scegli gli ospiti e il pacchetto. Vedi subito il prezzo stimato.</div>
         </div>
       </div>
       <div class="step">
@@ -1905,7 +2025,7 @@
     <div style="text-align:center;margin-bottom:1.5rem;">
       <p style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue-l);margin-bottom:0.5rem;">Preventivo istantaneo</p>
       <p style="font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;letter-spacing:-0.03em;color:var(--txt);margin-bottom:0.5rem;">Quanto costa il <span style="color:var(--amber);">tuo evento?</span></p>
-      <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:0.75rem;">Inserisci gli ospiti, seleziona la provincia e scegli il pacchetto.</p>
+      <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:0.75rem;" id="calc-intro-text">Inserisci gli ospiti e scegli il pacchetto.</p>
       <div style="font-size:2.5rem;color:var(--amber);line-height:1;">↓</div>
     </div>
 <!-- CONFIGURATORE -->
@@ -1915,25 +2035,10 @@
       <div class="ospiti-num" id="ospiti-num">50</div>
       <div class="ospiti-label">ospiti<br><span style="color:var(--dim);font-size:0.72rem;">trascina per modificare</span></div>
     </div>
-    <input type="range" id="ospiti-slider" min="10" max="100" value="50" step="5" oninput="aggiorna()">
-    <div class="ospiti-range-labels"><span>10</span><span>100</span></div>
-  </div>
-
-  <div class="config-card">
-    <div class="config-title">Seleziona la provincia dell'evento</div>
-    <div class="provincia-grid">
-      <button class="prov-btn active" onclick="setProv(this, 'BG', 0)">BG</button>
-      <button class="prov-btn" onclick="setProv(this, 'MI', 71)">MI</button>
-      <button class="prov-btn" onclick="setProv(this, 'BS', 71)">BS</button>
-      <button class="prov-btn" onclick="setProv(this, 'LC', 71)">LC</button>
-      <button class="prov-btn" onclick="setProv(this, 'CR', 71)">CR</button>
-      <button class="prov-btn" onclick="setProv(this, 'MB', 71)">MB</button>
-      <button class="prov-btn" onclick="setProv(this, 'CO', 71)">CO</button>
-      <button class="prov-btn" onclick="setProv(this, 'VA', 71)">VA</button>
-      <button class="prov-btn" onclick="setProv(this, 'PV', 71)">PV</button>
-      <button class="prov-btn" onclick="setProv(this, 'MN', 71)">MN</button>
-      <button class="prov-btn" onclick="setProv(this, 'SO', 71)">SO</button>
-      <button class="prov-btn" onclick="setProv(this, 'LO', 71)">LO</button>
+    <input type="range" id="ospiti-slider" min="50" max="100" value="50" step="5" oninput="aggiorna()">
+    <div class="ospiti-range-labels"><span>50</span><span>100</span></div>
+    <div style="margin-top:1rem;padding:0.85rem 1.1rem;border-radius:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);font-size:0.78rem;color:var(--txt2);line-height:1.5;text-align:center;">
+      Hai più di 100 ospiti? <a href="mailto:info@danielsportelli.it?subject=Richiesta%20preventivo%20oltre%20100%20ospiti" style="color:var(--amber);font-weight:700;text-decoration:none;">Contattaci direttamente →</a>
     </div>
   </div>
 
@@ -1941,8 +2046,8 @@
   <div class="risultati visible" id="risultati">
 
     <div style="text-align:center;padding:2rem 0 1.5rem;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Pacchetti</div>
-      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--txt);margin-bottom:0.4rem;">Scegli il pacchetto giusto.</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;" id="risultati-eyebrow">Pacchetti</div>
+      <div style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:var(--txt);margin-bottom:0.4rem;" id="risultati-title">Scegli il pacchetto giusto.</div>
       <div style="font-size:2.5rem;color:var(--amber);margin-top:0.25rem;line-height:1;">↓</div>
     </div>
 
@@ -1950,13 +2055,13 @@
       <!-- CALCOLATORE -->
       <div class="ac-card">
         <div class="ac-badge">Bar Catering</div>
-        <div class="ac-title">Scegli il pacchetto</div>
-        <div class="ac-subtitle">Servizio 3 ore · 2 barman<br><span style="font-size:0.65rem;opacity:0.7;">1 consumazione = 1 drink, shot, bibita o acqua</span></div>
+        <div class="ac-title" id="ac-title">Scegli il pacchetto</div>
+        <div class="ac-subtitle" id="ac-subtitle">Servizio 3 ore · 2 barman<br><span style="font-size:0.65rem;opacity:0.7;">1 consumazione = 1 drink, shot, bibita o acqua</span></div>
 
         <!-- Lista incluso -->
         <div style="margin:0.75rem 0 1rem;padding:0.75rem 1rem;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);">
-          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;">Incluso in tutti i pacchetti</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem 0.5rem;">
+          <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;" id="ac-included-title">Incluso in tutti i pacchetti</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem 0.5rem;" id="ac-included-list">
             <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Postazione premium</div>
             <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Trasporto</div>
             <div style="font-size:0.72rem;color:var(--txt2);display:flex;align-items:center;gap:0.35rem;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Montaggio</div>
@@ -1973,16 +2078,13 @@
         <div id="ac-selected-price" style="display:none;margin-top:0.75rem;padding:1rem;border-radius:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);position:relative;z-index:1;">
           <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--amber);margin-bottom:0.5rem;">Preventivo stimato</div>
           <div id="ac-selected-label" style="font-size:0.8rem;color:var(--txt2);margin-bottom:0.5rem;"></div>
-          <div id="ac-selected-num" style="font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:var(--txt);line-height:1;margin-bottom:1rem;"></div>
-          <div style="padding-top:0.6rem;border-top:1px solid rgba(245,158,11,0.15);">
+          <div id="ac-selected-num" style="font-size:2rem;font-weight:900;letter-spacing:-0.04em;color:var(--txt);line-height:1;margin-bottom:0.1rem;"></div>
+          <div id="ac-selected-eur" class="chf-secondary" style="display:none;"></div>
+          <div style="padding-top:0.6rem;border-top:1px solid rgba(245,158,11,0.15);margin-top:0.9rem;">
             <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.35rem;">Extra opzionali</div>
-            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.9;">
-              Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+150€</span><br>
-              +25 consumazioni <span style="color:var(--amber);font-weight:700;">+100€</span><br>
-              Drink list su misura <span style="color:var(--amber);font-weight:700;">+150€</span>
-            </div>
+            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.9;" id="ac-extra-info"></div>
           </div>
-          <div style="font-size:0.65rem;color:var(--dim);margin-top:0.6rem;opacity:0.7;">Tutti i prezzi si intendono IVA e tasse incluse</div>
+          <div style="font-size:0.65rem;color:var(--dim);margin-top:0.6rem;opacity:0.7;" id="ac-final-note">Tutti i prezzi si intendono IVA e tasse incluse</div>
         </div>
       </div>
 
@@ -2034,66 +2136,122 @@
 </div>
 
 <script>
-  function inviaForm() {
-    var nome     = document.getElementById('f-nome').value.trim();
-    var email    = document.getElementById('f-email').value.trim();
-    var data     = document.getElementById('f-data').value;
-    var ospiti   = document.getElementById('f-ospiti').value.trim();
-    var tipo     = document.getElementById('f-tipo').value;
-    var formula  = document.getElementById('f-formula').value;
-    var localita = document.getElementById('f-localita').value.trim();
-    var msg      = document.getElementById('f-msg').value.trim();
-
-    if (!nome || !email || !data || !ospiti || !tipo || !formula || !localita || !msg) {
-      alert('Compila tutti i campi obbligatori.');
-      return;
-    }
-
-    if (typeof gtag === 'function') gtag('event', 'form_submit_catering', { event_category: 'lead' });
-    if (typeof fbq === 'function') fbq('track', 'Lead');
-    if (typeof ttq !== 'undefined') ttq.track('SubmitForm');
-
-    var subject = encodeURIComponent('Preventivo Bar Catering — ' + tipo + ' · ' + localita);
-    var body = encodeURIComponent(
-      'Nome: ' + nome + '\n' +
-      'Email: ' + email + '\n' +
-      'Data evento: ' + data + '\n' +
-      'N. ospiti: ' + ospiti + '\n' +
-      'Tipo evento: ' + tipo + '\n' +
-      'Località: ' + localita + '\n' +
-      'Formula: ' + formula + '\n\n' +
-      'Messaggio:\n' + (msg || '—')
-    );
-
-    window.location.href = 'mailto:info@danielsportelli.it?subject=' + subject + '&body=' + body;
-
-    document.getElementById('form-content').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
-</script>
-
-
-<script>
 
   // ── STATE ──
   var stato = {
+    paese: null, // 'IT' | 'CH'
     ospiti: 50,
-    provExtra: 0,
-    provNome: 'BG',
     formulaSelezionata: null, // 'ac-0' | 'ac-1' | 'ac-2'
-    extra: { ora: false, consumazioni25: false, drinkList: false }
+    cambioCHFtoEUR: 1.08 // fallback corretto (1 CHF ≈ 1,08 EUR), aggiornato via API
   };
 
-  // ── LOGICA PREZZI ──
-  // Formula: (850 + N × cons/persona × 1.20) / 0.7091 arrotondato a 10€
-  // 850 = 200 costi fissi + 650 (parte residua per raggiungere 600€ netti dopo INPS+tasse)
-  function calcolaPrezzo(ospiti, consPerPersona, provExtra) {
-    var costoVar = ospiti * consPerPersona * 1.20;
-    var lordo = (850 + costoVar + provExtra) / 0.7091;
+  // ── SELEZIONE NAZIONE ──
+  function selezionaNazione(paese) {
+    stato.paese = paese;
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('main-content').classList.add('visible');
+
+    // Aggiorna badge switcher in alto
+    var flagSpan = document.getElementById('nation-switch-flag');
+    if (flagSpan) {
+      if (paese === 'IT') {
+        flagSpan.innerHTML = '<svg viewBox="0 0 3 2" width="20" height="14" style="border-radius:2px;"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg>';
+      } else {
+        flagSpan.innerHTML = '<svg viewBox="0 0 32 32" width="14" height="14" style="border-radius:2px;"><rect width="32" height="32" fill="#d52b1e"/><rect x="13" y="6" width="6" height="20" fill="#fff"/><rect x="6" y="13" width="20" height="6" fill="#fff"/></svg>';
+      }
+    }
+
+    // Aggiorna titolo / sottotitolo / lista incluso in base al paese
+    var titleEl = document.getElementById('ac-title');
+    var subEl = document.getElementById('ac-subtitle');
+    var inclTitleEl = document.getElementById('ac-included-title');
+    var calcIntro = document.getElementById('calc-intro-text');
+    var risultatiEyebrow = document.getElementById('risultati-eyebrow');
+    var risultatiTitle = document.getElementById('risultati-title');
+    var heroZona = document.getElementById('hero-zona-text');
+    var step1Desc = document.getElementById('step1-desc');
+    var heroSubText = document.getElementById('hero-sub-text');
+
+    if (paese === 'CH') {
+      if (titleEl) titleEl.textContent = 'Open Bar Premium';
+      if (subEl) subEl.innerHTML = 'Servizio 3 ore · 2 barman<br><span style="font-size:0.65rem;opacity:0.7;">Formula Open Bar — consumazioni illimitate</span>';
+      if (inclTitleEl) inclTitleEl.textContent = 'Incluso nel servizio';
+      if (calcIntro) calcIntro.textContent = 'Inserisci il numero di ospiti per calcolare il preventivo.';
+      if (risultatiEyebrow) risultatiEyebrow.textContent = 'Preventivo';
+      if (risultatiTitle) risultatiTitle.textContent = 'Il tuo Open Bar Premium.';
+      if (heroZona) heroZona.textContent = 'Servizio attivo nel Canton Ticino';
+      if (step1Desc) step1Desc.textContent = 'Usa il calcolatore qui sotto — inserisci gli ospiti. Vedi subito il prezzo stimato.';
+      if (heroSubText) heroSubText.textContent = 'Calcola il tuo open bar su misura, al resto pensiamo noi.';
+    } else {
+      if (titleEl) titleEl.textContent = 'Scegli il pacchetto';
+      if (subEl) subEl.innerHTML = 'Servizio 3 ore · 2 barman<br><span style="font-size:0.65rem;opacity:0.7;">1 consumazione = 1 drink, shot, bibita o acqua</span>';
+      if (inclTitleEl) inclTitleEl.textContent = 'Incluso in tutti i pacchetti';
+      if (calcIntro) calcIntro.textContent = 'Inserisci gli ospiti e scegli il pacchetto.';
+      if (risultatiEyebrow) risultatiEyebrow.textContent = 'Pacchetti';
+      if (risultatiTitle) risultatiTitle.textContent = 'Scegli il pacchetto giusto.';
+      if (heroZona) heroZona.textContent = 'Servizio attivo in tutta la Lombardia';
+      if (step1Desc) step1Desc.textContent = 'Usa il calcolatore qui sotto — scegli gli ospiti e il pacchetto. Vedi subito il prezzo stimato.';
+      if (heroSubText) heroSubText.textContent = 'Indica il numero degli ospiti, seleziona il pacchetto, al resto pensiamo noi.';
+    }
+
+    if (paese === 'CH') {
+      stato.formulaSelezionata = 'ac-0'; // Open Bar è automaticamente selezionato, unica opzione
+      aggiornaTassoCambio();
+    } else {
+      stato.formulaSelezionata = null;
+    }
+
+    aggiorna();
+  }
+
+  // ── CAMBIO NAZIONE ──
+  function tornaSelezioneNazione() {
+    document.getElementById('main-content').classList.remove('visible');
+    document.getElementById('welcome-screen').classList.remove('hidden');
+    stato.formulaSelezionata = null;
+  }
+
+  // ── CAMBIO CHF -> EUR (live, fallback fisso) ──
+  function aggiornaTassoCambio() {
+    fetch('https://api.frankfurter.app/latest?from=CHF&to=EUR')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data.rates && data.rates.EUR) {
+          stato.cambioCHFtoEUR = data.rates.EUR;
+          aggiornaTotale();
+        }
+      })
+      .catch(function() { /* mantiene fallback 1.08 */ });
+  }
+
+  // ── LOGICA PREZZI ITALIA ──
+  // Base: 200 costi fissi (2 barman + furgone) + lordo necessario per 900€ netti
+  // 900 / 0.7091 = ~1270 -> + 200 = 1470 base totale
+  // Formula: (1470 + ospiti × cons/persona × 1.30) / 0.7091, arrotondato a 10€
+  function calcolaPrezzoIT(ospiti, consPerPersona) {
+    var costoVar = ospiti * consPerPersona * 1.30;
+    var lordo = (1470 + costoVar) / 0.7091;
     return Math.ceil(lordo / 10) * 10;
   }
 
-  // 3 pacchetti fissi
+  // ── LOGICA PREZZI SVIZZERA ──
+  // Tariffa a persona dinamica decrescente lineare: 85 CHF (50 ospiti) -> 70 CHF (100 ospiti)
+  function tariffaCHFperPersona(ospiti) {
+    var min = 50, max = 100;
+    var tariffaMin = 85, tariffaMax = 70; // a 50 e 100 ospiti
+    var clamped = Math.max(min, Math.min(max, ospiti));
+    var t = (clamped - min) / (max - min); // 0 a 50, 1 a 100
+    return tariffaMin + (tariffaMax - tariffaMin) * t;
+  }
+
+  // Open Bar unico — niente moltiplicatori pacchetto
+  function calcolaPrezzoCH(ospiti) {
+    var tariffa = tariffaCHFperPersona(ospiti);
+    var totale = tariffa * ospiti;
+    return Math.ceil(totale / 10) * 10;
+  }
+
+  // 3 pacchetti fissi (solo Italia)
   var PACCHETTI = [
     { id: 'basic',   nome: 'Basic x1',  cons: 1, badge: null },
     { id: 'party',   nome: 'Party x2',  cons: 2, badge: 'CONSIGLIATO' },
@@ -2104,50 +2262,80 @@
   function aggiorna() {
     stato.ospiti = parseInt(document.getElementById('ospiti-slider').value);
     document.getElementById('ospiti-num').textContent = stato.ospiti;
-    renderFormule();
-    aggiornaTotale();
-  }
 
-  function setProv(btn, nome, extra) {
-    document.querySelectorAll('.prov-btn').forEach(function(b){ b.classList.remove('active'); });
-    btn.classList.add('active');
-    stato.provNome = nome;
-    stato.provExtra = extra;
     renderFormule();
     aggiornaTotale();
   }
 
   function renderFormule() {
     var html = '';
-    PACCHETTI.forEach(function(p, i) {
-      var prezzo = calcolaPrezzo(stato.ospiti, p.cons, stato.provExtra);
-      var isSelected = stato.formulaSelezionata === 'ac-' + i;
-      var totCons = stato.ospiti * p.cons;
 
+    if (stato.paese === 'CH') {
+      // Open Bar unico — niente scelta, solo riepilogo tariffa
+      var prezzo = calcolaPrezzoCH(stato.ospiti);
+      var tariffaUnit = tariffaCHFperPersona(stato.ospiti);
       html += '<div style="position:relative;margin-bottom:0.5rem;">';
-      html += '<div class="ac-pkg' + (isSelected ? ' selected' : '') + '" onclick="selezionaAC(' + i + ')" style="display:flex;align-items:center;gap:0.75rem;position:relative;overflow:hidden;">';
-
-      // Radio button
-      html += '<div style="width:20px;height:20px;border-radius:50%;border:2px solid ' + (isSelected ? 'var(--amber)' : 'rgba(255,255,255,0.2)') + ';background:' + (isSelected ? 'var(--amber)' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;">';
-      if (isSelected) {
-        html += '<svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>';
-      }
+      html += '<div class="ac-pkg selected" style="display:flex;align-items:center;gap:0.75rem;position:relative;overflow:hidden;cursor:default;">';
+      html += '<div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--amber);background:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0;">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>';
       html += '</div>';
-
-      // Testo — solo totale consumazioni
-      html += '<div class="ac-pkg-left" style="flex:1;"><div class="ac-pkg-name" style="display:flex;align-items:center;gap:0.4rem;">' + p.nome;
-      if (p.badge) {
-        html += '<span style="background:var(--amber);color:#0a0f1e;font-size:0.45rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:4px;line-height:1.4;">' + p.badge + '</span>';
-      }
-      html += '</div>';
-      html += '<div class="ac-pkg-drinks">' + totCons + ' consumazioni totali</div></div>';
-      html += '<div class="ac-pkg-price">' + prezzo.toLocaleString('it-IT') + '€</div>';
+      html += '<div class="ac-pkg-left" style="flex:1;"><div class="ac-pkg-name">Open Bar Premium</div>';
+      html += '<div class="ac-pkg-drinks">' + tariffaUnit.toFixed(0) + ' CHF/persona</div></div>';
+      html += '<div class="ac-pkg-price">' + prezzo.toLocaleString('it-IT') + ' CHF</div>';
       html += '</div></div>';
-    });
+    } else {
+      PACCHETTI.forEach(function(p, i) {
+        var prezzo = calcolaPrezzoIT(stato.ospiti, p.cons);
+        var isSelected = stato.formulaSelezionata === 'ac-' + i;
+        var totCons = stato.ospiti * p.cons;
+
+        html += '<div style="position:relative;margin-bottom:0.5rem;">';
+        html += '<div class="ac-pkg' + (isSelected ? ' selected' : '') + '" onclick="selezionaAC(' + i + ')" style="display:flex;align-items:center;gap:0.75rem;position:relative;overflow:hidden;">';
+
+        html += '<div style="width:20px;height:20px;border-radius:50%;border:2px solid ' + (isSelected ? 'var(--amber)' : 'rgba(255,255,255,0.2)') + ';background:' + (isSelected ? 'var(--amber)' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;">';
+        if (isSelected) {
+          html += '<svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>';
+        }
+        html += '</div>';
+
+        html += '<div class="ac-pkg-left" style="flex:1;"><div class="ac-pkg-name" style="display:flex;align-items:center;gap:0.4rem;">' + p.nome;
+        if (p.badge) {
+          html += '<span style="background:var(--amber);color:#0a0f1e;font-size:0.45rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:4px;line-height:1.4;">' + p.badge + '</span>';
+        }
+        html += '</div>';
+        html += '<div class="ac-pkg-drinks">' + totCons + ' consumazioni totali</div></div>';
+        html += '<div class="ac-pkg-price">' + prezzo.toLocaleString('it-IT') + ' €</div>';
+        html += '</div></div>';
+      });
+    }
+
     document.getElementById('ac-packages').innerHTML = html;
+
+    // Aggiorna blocco extra opzionali in base al paese
+    var extraInfo = document.getElementById('ac-extra-info');
+    var finalNote = document.getElementById('ac-final-note');
+    if (extraInfo) {
+      if (stato.paese === 'CH') {
+        var oraExtra = stato.ospiti * 10;
+        extraInfo.innerHTML =
+          'Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+' + oraExtra.toLocaleString('it-IT') + ' CHF</span> <span style="opacity:0.6;">(' + stato.ospiti + ' ospiti × 10 CHF)</span><br>' +
+          'Drink list su misura <span style="color:var(--amber);font-weight:700;">+250 CHF</span>';
+      } else {
+        extraInfo.innerHTML =
+          'Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+250€</span><br>' +
+          '+25 consumazioni <span style="color:var(--amber);font-weight:700;">+100€</span><br>' +
+          'Drink list su misura <span style="color:var(--amber);font-weight:700;">+150€</span>';
+      }
+    }
+    if (finalNote) {
+      finalNote.textContent = stato.paese === 'CH'
+        ? 'Tutti i prezzi si intendono finali, comprensivi di tasse, IVA ed oneri doganali.'
+        : 'Tutti i prezzi si intendono IVA e tasse incluse';
+    }
   }
 
   function selezionaAC(i) {
+    if (stato.paese === 'CH') return; // Svizzera: nessuna scelta pacchetto
     stato.formulaSelezionata = 'ac-' + i;
     renderFormule();
     aggiornaTotale();
@@ -2161,17 +2349,37 @@
       if (selPrice) selPrice.style.display = 'none';
       return;
     }
-    var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
-    var p = PACCHETTI[idx];
-    var prezzoBase = calcolaPrezzo(stato.ospiti, p.cons, stato.provExtra);
+
+    var prezzoBase, labelPacchetto;
+    if (stato.paese === 'CH') {
+      prezzoBase = calcolaPrezzoCH(stato.ospiti);
+      labelPacchetto = 'Open Bar Premium';
+    } else {
+      var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
+      var p = PACCHETTI[idx];
+      prezzoBase = calcolaPrezzoIT(stato.ospiti, p.cons);
+      labelPacchetto = p.nome;
+    }
+
     var selLabel = document.getElementById('ac-selected-label');
     var selNum = document.getElementById('ac-selected-num');
+    var selEur = document.getElementById('ac-selected-eur');
+    var valuta = stato.paese === 'CH' ? 'CHF' : '€';
+
     if (selPrice && selLabel && selNum) {
-      selLabel.textContent = p.nome + ' · ' + stato.ospiti + ' ospiti · ' + stato.provNome;
-      selNum.textContent = prezzoBase.toLocaleString('it-IT') + '€';
+      selLabel.textContent = labelPacchetto + ' · ' + stato.ospiti + ' ospiti · ' + (stato.paese === 'CH' ? 'Canton Ticino' : 'Lombardia');
+      selNum.textContent = prezzoBase.toLocaleString('it-IT') + ' ' + valuta;
       selPrice.style.display = 'block';
+
+      if (stato.paese === 'CH' && selEur) {
+        var eurValue = Math.round(prezzoBase * stato.cambioCHFtoEUR);
+        selEur.textContent = '≈ €' + eurValue.toLocaleString('it-IT') + ' · Conversione indicativa';
+        selEur.style.display = 'block';
+      } else if (selEur) {
+        selEur.style.display = 'none';
+      }
     }
-    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase });
+    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase, paese: stato.paese });
   }
 
   function mostraForm() {
@@ -2186,7 +2394,6 @@
     var data  = document.getElementById('f-data').value;
     var note  = document.getElementById('f-note').value.trim();
 
-    // Validazione email con regex
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!nome || !email || !data) {
       alert('Compila nome, email e data evento.');
@@ -2198,17 +2405,13 @@
       return;
     }
 
-    // Formatta data in italiano
     var dataFormatted = data ? (function(d){ var p = d.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; })(data) : '';
 
-    // Build preventivo summary
     var selNum = document.getElementById('ac-selected-num');
-    var selLabel = document.getElementById('ac-selected-label');
     var preventivo = '';
-    if (stato.formulaSelezionata && selNum && selLabel) {
-      var idx2 = parseInt(stato.formulaSelezionata.split('-')[1]);
-      var pkg = PACCHETTI[idx2];
-      preventivo = pkg.nome + ' (' + pkg.cons + ' cons/persona) · ' + stato.ospiti + ' ospiti — ' + selNum.textContent;
+    if (stato.formulaSelezionata && selNum) {
+      var labelPacchetto = stato.paese === 'CH' ? 'Open Bar Premium' : PACCHETTI[parseInt(stato.formulaSelezionata.split('-')[1])].nome;
+      preventivo = labelPacchetto + ' · ' + stato.ospiti + ' ospiti — ' + selNum.textContent;
     }
 
     var btn = document.querySelector('.cta-btn');
@@ -2219,14 +2422,14 @@
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: 'e977e478-2868-441a-ba27-9c4db84b4be5',
-        subject: 'Richiesta Bar Catering — ' + stato.ospiti + ' ospiti · ' + stato.provNome,
+        subject: 'Richiesta Bar Catering — ' + stato.ospiti + ' ospiti · ' + (stato.paese === 'CH' ? 'Svizzera (Canton Ticino)' : 'Italia (Lombardia)'),
         from_name: nome,
         name: nome,
         email: email,
         'Data evento': dataFormatted,
+        'Nazione': stato.paese === 'CH' ? 'Svizzera (Canton Ticino)' : 'Italia (Lombardia)',
         'Preventivo': preventivo || 'Non calcolato',
         'Ospiti': stato.ospiti,
-        'Provincia': stato.provNome,
         'Note': note || '—',
         botcheck: ''
       })
@@ -2245,8 +2448,8 @@
     });
   }
 
-  // Init
-  document.addEventListener('DOMContentLoaded', function(){ aggiorna(); });
+  // Init (non chiama aggiorna() finché non si seleziona la nazione)
+  document.addEventListener('DOMContentLoaded', function(){});
 
 </script>
 </body>
