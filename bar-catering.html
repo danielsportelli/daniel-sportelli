@@ -1808,7 +1808,7 @@
           <div class="flip-front">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 22h8M12 11v11M6 3h12l-2 8H8L6 3z"/>
+                <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8-6.3 3.8 1.7-7-5.4-4.7 7.1-.6L12 2z"/>
               </svg>
             </div>
             <div class="service-title">Postazione dark premium</div>
@@ -1873,9 +1873,9 @@
           <div class="flip-front">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
-                <rect x="9" y="3" width="6" height="4" rx="1"/>
-                <path d="M9 12h6M9 16h4"/>
+                <path d="M4 4h16l-8 9-8-9z"/>
+                <path d="M12 13v7"/>
+                <path d="M8 21h8"/>
               </svg>
             </div>
             <div class="service-title">Drink list studiata</div>
@@ -2038,7 +2038,7 @@
     <input type="range" id="ospiti-slider" min="50" max="100" value="50" step="5" oninput="aggiorna()">
     <div class="ospiti-range-labels"><span>50</span><span>100</span></div>
     <div style="margin-top:1rem;padding:0.85rem 1.1rem;border-radius:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.18);font-size:0.78rem;color:var(--txt2);line-height:1.5;text-align:center;">
-      Hai più di 100 ospiti? <a href="mailto:info@danielsportelli.it?subject=Richiesta%20preventivo%20oltre%20100%20ospiti" style="color:var(--amber);font-weight:700;text-decoration:none;">Contattaci →</a>
+      Hai più di 100 ospiti? <a href="mailto:info@danielsportelli.it?subject=Richiesta%20preventivo%20oltre%20100%20ospiti" style="color:var(--amber);font-weight:700;text-decoration:none;">Contattaci direttamente →</a>
     </div>
   </div>
 
@@ -2082,7 +2082,7 @@
           <div id="ac-selected-eur" class="chf-secondary" style="display:none;"></div>
           <div style="padding-top:0.6rem;border-top:1px solid rgba(245,158,11,0.15);margin-top:0.9rem;">
             <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:0.35rem;">Extra opzionali</div>
-            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.9;" id="ac-extra-info"></div>
+            <div style="font-size:0.72rem;color:var(--txt2);line-height:1.4;" id="ac-extra-info"></div>
           </div>
           <div style="font-size:0.65rem;color:var(--dim);margin-top:0.6rem;opacity:0.7;" id="ac-final-note">Tutti i prezzi si intendono IVA e tasse incluse</div>
         </div>
@@ -2142,12 +2142,14 @@
     paese: null, // 'IT' | 'CH'
     ospiti: 50,
     formulaSelezionata: null, // 'ac-0' | 'ac-1' | 'ac-2'
-    cambioCHFtoEUR: 1.08 // fallback corretto (1 CHF ≈ 1,08 EUR), aggiornato via API
+    cambioCHFtoEUR: 1.08, // fallback corretto (1 CHF ≈ 1,08 EUR), aggiornato via API
+    extra: { ora: false, drinkList: false, blocchiDrink: 0 } // blocchiDrink: 0-8 (max +200 consumazioni), solo Event x3 IT
   };
 
   // ── SELEZIONE NAZIONE ──
   function selezionaNazione(paese) {
     stato.paese = paese;
+    stato.extra = { ora: false, drinkList: false, blocchiDrink: 0 };
     document.getElementById('welcome-screen').classList.add('hidden');
     document.getElementById('main-content').classList.add('visible');
 
@@ -2226,11 +2228,11 @@
 
   // ── LOGICA PREZZI ITALIA ──
   // Base: 200 costi fissi (2 barman + furgone) + lordo necessario per 900€ netti
-  // 900 / 0.7091 = ~1270 -> + 200 = 1470 base totale
-  // Formula: (1470 + ospiti × cons/persona × 1.30) / 0.7091, arrotondato a 10€
+  // 900 / 0.7091 = ~1270 -> + 300 = 1570 base totale (furgone 200€ + bartender 100€ = 300€ fissi)
+  // Formula: (1570 + ospiti × cons/persona × 1.30) / 0.7091, arrotondato a 10€
   function calcolaPrezzoIT(ospiti, consPerPersona) {
     var costoVar = ospiti * consPerPersona * 1.30;
-    var lordo = (1470 + costoVar) / 0.7091;
+    var lordo = (1570 + costoVar) / 0.7091;
     return Math.ceil(lordo / 10) * 10;
   }
 
@@ -2311,20 +2313,48 @@
 
     document.getElementById('ac-packages').innerHTML = html;
 
-    // Aggiorna blocco extra opzionali in base al paese
+    // Aggiorna blocco extra opzionali in base al paese (ora interattivi)
     var extraInfo = document.getElementById('ac-extra-info');
     var finalNote = document.getElementById('ac-final-note');
     if (extraInfo) {
+      var rowStyle = 'display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;user-select:none;';
+      var checkboxHtml = function(checked) {
+        return '<div style="width:20px;height:20px;border-radius:5px;border:2px solid ' + (checked ? 'var(--amber)' : 'rgba(255,255,255,0.25)') + ';background:' + (checked ? 'var(--amber)' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s;pointer-events:none;">' +
+          (checked ? '<svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
+          '</div>';
+      };
+
       if (stato.paese === 'CH') {
         var oraExtra = stato.ospiti * 10;
-        extraInfo.innerHTML =
-          'Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+' + oraExtra.toLocaleString('it-IT') + ' CHF</span> <span style="opacity:0.6;">(' + stato.ospiti + ' ospiti × 10 CHF)</span><br>' +
-          'Drink list su misura <span style="color:var(--amber);font-weight:700;">+250 CHF</span>';
+        var html = '';
+        html += '<div style="' + rowStyle + '" onclick="toggleExtra(\'ora\')">' + checkboxHtml(stato.extra.ora) +
+          '<div style="flex:1;">Ora aggiuntiva <span style="opacity:0.6;font-size:0.66rem;">(' + stato.ospiti + ' ospiti × 10 CHF)</span></div>' +
+          '<div style="color:var(--amber);font-weight:700;">+' + oraExtra.toLocaleString('it-IT') + ' CHF</div></div>';
+        html += '<div style="' + rowStyle + '" onclick="toggleExtra(\'drinkList\')">' + checkboxHtml(stato.extra.drinkList) +
+          '<div style="flex:1;">Drink list su misura</div>' +
+          '<div style="color:var(--amber);font-weight:700;">+250 CHF</div></div>';
+        extraInfo.innerHTML = html;
       } else {
-        extraInfo.innerHTML =
-          'Ora aggiuntiva <span style="color:var(--amber);font-weight:700;">+250€</span><br>' +
-          '+25 consumazioni <span style="color:var(--amber);font-weight:700;">+100€</span><br>' +
-          'Drink list su misura <span style="color:var(--amber);font-weight:700;">+150€</span>';
+        var html = '';
+        html += '<div style="' + rowStyle + '" onclick="toggleExtra(\'ora\')">' + checkboxHtml(stato.extra.ora) +
+          '<div style="flex:1;">Ora aggiuntiva</div>' +
+          '<div style="color:var(--amber);font-weight:700;">+250€</div></div>';
+        html += '<div style="' + rowStyle + '" onclick="toggleExtra(\'drinkList\')">' + checkboxHtml(stato.extra.drinkList) +
+          '<div style="flex:1;">Drink list su misura</div>' +
+          '<div style="color:var(--amber);font-weight:700;">+150€</div></div>';
+
+        // Selettore blocchi drink extra — solo se Event x3 (indice 2) selezionato
+        var idxSel = stato.formulaSelezionata ? parseInt(stato.formulaSelezionata.split('-')[1]) : -1;
+        if (idxSel === 2) {
+          html += '<div style="display:flex;align-items:center;gap:0.6rem;padding:0.5rem 0 0.2rem;border-top:1px solid rgba(255,255,255,0.06);margin-top:0.3rem;">';
+          html += '<div style="flex:1;">Pacchetto +25 consumazioni <span style="opacity:0.6;font-size:0.66rem;">(max 8)</span></div>';
+          html += '<button onclick="modificaBlocchiDrink(-1)" style="width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);color:var(--txt2);font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>';
+          html += '<div style="min-width:20px;text-align:center;font-weight:800;color:var(--txt);">' + stato.extra.blocchiDrink + '</div>';
+          html += '<button onclick="modificaBlocchiDrink(1)" style="width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);color:var(--txt2);font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>';
+          html += '<div style="color:var(--amber);font-weight:700;min-width:60px;text-align:right;">+' + (stato.extra.blocchiDrink * 150) + '€</div>';
+          html += '</div>';
+        }
+        extraInfo.innerHTML = html;
       }
     }
     if (finalNote) {
@@ -2337,11 +2367,25 @@
   function selezionaAC(i) {
     if (stato.paese === 'CH') return; // Svizzera: nessuna scelta pacchetto
     stato.formulaSelezionata = 'ac-' + i;
+    if (i !== 2) stato.extra.blocchiDrink = 0; // pacchetto +25 consumazioni extra solo per Event x3 (indice 2)
     renderFormule();
     aggiornaTotale();
   }
 
-  function toggleExtra(el, key, val) { /* info only */ }
+  function toggleExtra(key) {
+    stato.extra[key] = !stato.extra[key];
+    renderFormule();
+    aggiornaTotale();
+  }
+
+  function modificaBlocchiDrink(delta) {
+    var nuovo = stato.extra.blocchiDrink + delta;
+    if (nuovo < 0) nuovo = 0;
+    if (nuovo > 8) nuovo = 8;
+    stato.extra.blocchiDrink = nuovo;
+    renderFormule();
+    aggiornaTotale();
+  }
 
   function aggiornaTotale() {
     var selPrice = document.getElementById('ac-selected-price');
@@ -2350,16 +2394,23 @@
       return;
     }
 
-    var prezzoBase, labelPacchetto;
+    var prezzoBase, labelPacchetto, extraTotale = 0;
     if (stato.paese === 'CH') {
       prezzoBase = calcolaPrezzoCH(stato.ospiti);
       labelPacchetto = 'Open Bar Premium';
+      if (stato.extra.ora) extraTotale += stato.ospiti * 10;
+      if (stato.extra.drinkList) extraTotale += 250;
     } else {
       var idx = parseInt(stato.formulaSelezionata.split('-')[1]);
       var p = PACCHETTI[idx];
       prezzoBase = calcolaPrezzoIT(stato.ospiti, p.cons);
       labelPacchetto = p.nome;
+      if (stato.extra.ora) extraTotale += 250;
+      if (stato.extra.drinkList) extraTotale += 150;
+      if (idx === 2) extraTotale += stato.extra.blocchiDrink * 150;
     }
+
+    var prezzoTotale = prezzoBase + extraTotale;
 
     var selLabel = document.getElementById('ac-selected-label');
     var selNum = document.getElementById('ac-selected-num');
@@ -2368,18 +2419,18 @@
 
     if (selPrice && selLabel && selNum) {
       selLabel.textContent = labelPacchetto + ' · ' + stato.ospiti + ' ospiti · ' + (stato.paese === 'CH' ? 'Canton Ticino' : 'Lombardia');
-      selNum.textContent = prezzoBase.toLocaleString('it-IT') + ' ' + valuta;
+      selNum.textContent = prezzoTotale.toLocaleString('it-IT') + ' ' + valuta;
       selPrice.style.display = 'block';
 
       if (stato.paese === 'CH' && selEur) {
-        var eurValue = Math.round(prezzoBase * stato.cambioCHFtoEUR);
+        var eurValue = Math.round(prezzoTotale * stato.cambioCHFtoEUR);
         selEur.textContent = '≈ €' + eurValue.toLocaleString('it-IT') + ' · Conversione indicativa';
         selEur.style.display = 'block';
       } else if (selEur) {
         selEur.style.display = 'none';
       }
     }
-    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoBase, paese: stato.paese });
+    if (typeof gtag === 'function') gtag('event', 'preventivo_calcolato', { event_category: 'lead', value: prezzoTotale, paese: stato.paese });
   }
 
   function mostraForm() {
@@ -2409,6 +2460,10 @@
 
     var selNum = document.getElementById('ac-selected-num');
     var preventivo = '';
+    var extraScelti = [];
+    if (stato.extra.ora) extraScelti.push('Ora aggiuntiva');
+    if (stato.extra.drinkList) extraScelti.push('Drink list su misura');
+    if (stato.paese === 'IT' && stato.extra.blocchiDrink > 0) extraScelti.push(stato.extra.blocchiDrink + ' pacchetto/i +25 consumazioni');
     if (stato.formulaSelezionata && selNum) {
       var labelPacchetto = stato.paese === 'CH' ? 'Open Bar Premium' : PACCHETTI[parseInt(stato.formulaSelezionata.split('-')[1])].nome;
       preventivo = labelPacchetto + ' · ' + stato.ospiti + ' ospiti — ' + selNum.textContent;
@@ -2429,6 +2484,7 @@
         'Data evento': dataFormatted,
         'Nazione': stato.paese === 'CH' ? 'Svizzera (Canton Ticino)' : 'Italia (Lombardia)',
         'Preventivo': preventivo || 'Non calcolato',
+        'Extra selezionati': extraScelti.length ? extraScelti.join(', ') : 'Nessuno',
         'Ospiti': stato.ospiti,
         'Note': note || '—',
         botcheck: ''
