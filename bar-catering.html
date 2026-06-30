@@ -2508,16 +2508,22 @@
   function resetForm() {
     var paeseCorrente = stato.paese;
 
-    // Chiama selezionaNazione che fa un reset completo esattamente come al primo arrivo
+    // Resetta slider ospiti a 50 (default)
+    var slider = document.getElementById('ospiti-slider');
+    if (slider) slider.value = 50;
+    var ospitiNum = document.getElementById('ospiti-num');
+    if (ospitiNum) ospitiNum.textContent = '50';
+
+    // Reset completo stato tramite selezionaNazione (come primo arrivo)
     selezionaNazione(paeseCorrente);
 
-    // Resetta i campi del form (selezionaNazione non li tocca)
+    // Resetta i campi del form
     ['f-nome','f-email','f-data','f-note'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.value = '';
     });
 
-    // Ripristina form-conferma allo stato originale (rimuove il messaggio di successo)
+    // Ripristina form-conferma allo stato originale
     var formConferma = document.getElementById('form-conferma');
     if (formConferma) {
       formConferma.innerHTML = '<h2 style="font-size:1.2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.25rem;">Raccontaci il tuo evento.</h2><p style="font-size:0.82rem;color:var(--txt2);margin-bottom:1.25rem;">Il preventivo che hai selezionato verrà incluso automaticamente nella richiesta.</p><div style="display:flex;flex-direction:column;gap:0.75rem;"><div><label class="form-label">Nome e cognome *</label><input type="text" class="form-input" id="f-nome" placeholder="Il tuo nome"></div><div><label class="form-label">Email *</label><input type="email" class="form-input" id="f-email" placeholder="tuaemail@mail.com"></div><div><label class="form-label">Data dell\'evento *</label><input type="date" class="form-input" id="f-data"></div><div><label class="form-label">Note aggiuntive</label><textarea class="form-textarea" id="f-note" placeholder="Luogo, orario, richieste particolari..."></textarea></div></div><button class="cta-btn" onclick="inviaRichiesta()">Invia richiesta →</button>';
