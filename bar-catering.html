@@ -2506,26 +2506,21 @@
 
   // ── RESET FORM (Opzione B: mantieni nazione e ospiti, resetta preventivo e form) ──
   function resetForm() {
-    // Resetta stato extra e pacchetto selezionato
-    stato.formulaSelezionata = null;
-    stato.extra = { ora: false, drinkList: false, blocchiDrink: 0 };
+    var paeseCorrente = stato.paese;
 
-    // Resetta UI pacchetti e preventivo
-    renderFormule();
-    var selPrice = document.getElementById('ac-selected-price');
-    if (selPrice) selPrice.style.display = 'none';
+    // Chiama selezionaNazione che fa un reset completo esattamente come al primo arrivo
+    selezionaNazione(paeseCorrente);
 
-    // Resetta campi form
+    // Resetta i campi del form (selezionaNazione non li tocca)
     ['f-nome','f-email','f-data','f-note'].forEach(function(id) {
       var el = document.getElementById(id);
       if (el) el.value = '';
     });
 
-    // Ripristina il form-conferma al suo stato originale
+    // Ripristina form-conferma allo stato originale (rimuove il messaggio di successo)
     var formConferma = document.getElementById('form-conferma');
     if (formConferma) {
       formConferma.innerHTML = '<h2 style="font-size:1.2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.25rem;">Raccontaci il tuo evento.</h2><p style="font-size:0.82rem;color:var(--txt2);margin-bottom:1.25rem;">Il preventivo che hai selezionato verrà incluso automaticamente nella richiesta.</p><div style="display:flex;flex-direction:column;gap:0.75rem;"><div><label class="form-label">Nome e cognome *</label><input type="text" class="form-input" id="f-nome" placeholder="Il tuo nome"></div><div><label class="form-label">Email *</label><input type="email" class="form-input" id="f-email" placeholder="tuaemail@mail.com"></div><div><label class="form-label">Data dell\'evento *</label><input type="date" class="form-input" id="f-data"></div><div><label class="form-label">Note aggiuntive</label><textarea class="form-textarea" id="f-note" placeholder="Luogo, orario, richieste particolari..."></textarea></div></div><button class="cta-btn" onclick="inviaRichiesta()">Invia richiesta →</button>';
-      // Riattacca gli scroll handler ai nuovi input
       attachFocusScrollHandlers();
     }
 
