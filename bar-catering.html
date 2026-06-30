@@ -2496,7 +2496,7 @@
       if (typeof fbq === 'function') fbq('track', 'Lead');
       if (typeof ttq !== 'undefined') ttq.track('SubmitForm');
 
-      document.getElementById('form-conferma').innerHTML = '<div style="text-align:center;padding:2.5rem 1.5rem;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:16px;"><div style="width:56px;height:56px;background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:28px;height:28px;\"><polyline points=\"20 6 9 17 4 12\"/></svg></div><div style="font-size:1.2rem;font-weight:900;margin-bottom:0.75rem;color:#10b981;">Richiesta inviata!</div><p style="font-size:0.9rem;color:var(--txt2);line-height:1.6;margin-bottom:0.5rem;">Ti risponderemo entro 24 ore a:</p><p style="font-size:0.95rem;font-weight:700;color:var(--txt);margin-bottom:0.75rem;">' + email + '</p><p style="font-size:0.8rem;color:var(--dim);line-height:1.5;margin-bottom:1.5rem;">Se l\'indirizzo non è corretto, invia una nuova richiesta con la mail giusta.</p><button onclick="location.reload()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--txt2);font-family:Inter,sans-serif;font-size:0.8rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:999px;cursor:pointer;">Invia un\'altra richiesta</button></div>';
+      document.getElementById('form-conferma').innerHTML = '<div style="text-align:center;padding:2.5rem 1.5rem;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:16px;"><div style="width:56px;height:56px;background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:28px;height:28px;\"><polyline points=\"20 6 9 17 4 12\"/></svg></div><div style="font-size:1.2rem;font-weight:900;margin-bottom:0.75rem;color:#10b981;">Richiesta inviata!</div><p style="font-size:0.9rem;color:var(--txt2);line-height:1.6;margin-bottom:0.5rem;">Ti risponderemo entro 24 ore a:</p><p style="font-size:0.95rem;font-weight:700;color:var(--txt);margin-bottom:0.75rem;">' + email + '</p><p style="font-size:0.8rem;color:var(--dim);line-height:1.5;margin-bottom:1.5rem;">Se l\'indirizzo non è corretto, invia una nuova richiesta con la mail giusta.</p><button onclick="resetForm()" style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--txt2);font-family:Inter,sans-serif;font-size:0.8rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:999px;cursor:pointer;">Invia un\'altra richiesta</button></div>';
     })
     .catch(function(err) {
       if (btn) { btn.textContent = 'Invia richiesta →'; btn.disabled = false; }
@@ -2504,8 +2504,53 @@
     });
   }
 
+  // ── RESET FORM (Opzione B: mantieni nazione e ospiti, resetta preventivo e form) ──
+  function resetForm() {
+    // Resetta stato extra e pacchetto selezionato
+    stato.formulaSelezionata = null;
+    stato.extra = { ora: false, drinkList: false, blocchiDrink: 0 };
+
+    // Resetta UI pacchetti e preventivo
+    renderFormule();
+    var selPrice = document.getElementById('ac-selected-price');
+    if (selPrice) selPrice.style.display = 'none';
+
+    // Resetta campi form
+    ['f-nome','f-email','f-data','f-note'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+
+    // Ripristina il form-conferma al suo stato originale
+    var formConferma = document.getElementById('form-conferma');
+    if (formConferma) {
+      formConferma.innerHTML = '<h2 style="font-size:1.2rem;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.25rem;">Raccontaci il tuo evento.</h2><p style="font-size:0.82rem;color:var(--txt2);margin-bottom:1.25rem;">Il preventivo che hai selezionato verrà incluso automaticamente nella richiesta.</p><div style="display:flex;flex-direction:column;gap:0.75rem;"><div><label class="form-label">Nome e cognome *</label><input type="text" class="form-input" id="f-nome" placeholder="Il tuo nome"></div><div><label class="form-label">Email *</label><input type="email" class="form-input" id="f-email" placeholder="tuaemail@mail.com"></div><div><label class="form-label">Data dell\'evento *</label><input type="date" class="form-input" id="f-data"></div><div><label class="form-label">Note aggiuntive</label><textarea class="form-textarea" id="f-note" placeholder="Luogo, orario, richieste particolari..."></textarea></div></div><button class="cta-btn" onclick="inviaRichiesta()">Invia richiesta →</button>';
+      // Riattacca gli scroll handler ai nuovi input
+      attachFocusScrollHandlers();
+    }
+
+    // Scrolla al calcolatore
+    var anchor = document.getElementById('calc-anchor');
+    if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── SCROLL INTO VIEW quando la tastiera copre l'input ──
+  function attachFocusScrollHandlers() {
+    var inputs = document.querySelectorAll('.form-input, .form-textarea');
+    inputs.forEach(function(el) {
+      el.addEventListener('focus', function() {
+        var self = this;
+        setTimeout(function() {
+          self.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 350); // attendi che la tastiera sia aperta
+      });
+    });
+  }
+
   // Init (non chiama aggiorna() finché non si seleziona la nazione)
-  document.addEventListener('DOMContentLoaded', function(){});
+  document.addEventListener('DOMContentLoaded', function(){
+    attachFocusScrollHandlers();
+  });
 
 </script>
 </body>
