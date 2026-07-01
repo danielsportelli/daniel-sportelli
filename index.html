@@ -403,18 +403,7 @@
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
   document.addEventListener('selectstart', function(e){ e.preventDefault(); });
 
-  // UTM passthrough
-  document.addEventListener('DOMContentLoaded', function() {
-    var params = new URLSearchParams(window.location.search);
-    var utm_source   = params.get('utm_source')   || 'direct';
-    var utm_medium   = params.get('utm_medium')   || 'none';
-    var utm_campaign = params.get('utm_campaign') || 'daniel';
-    var utmString = '?utm_source=' + utm_source + '&utm_medium=' + utm_medium + '&utm_campaign=' + utm_campaign;
-    var cardCL = document.getElementById('card-cl');
-    if (cardCL) cardCL.href = 'https://cocktaillegend.app' + utmString;
-    var cardBC = document.getElementById('card-bc');
-    if (cardBC) cardBC.href = 'https://danielsportelli.it/bar-catering.html' + utmString;
-  });
+
 </script>
 
 <div class="page">
