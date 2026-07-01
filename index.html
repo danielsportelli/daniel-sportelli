@@ -470,31 +470,39 @@
 </div>
 
 <script>
-// UTM passthrough - propaga i parametri UTM ai link delle card
+// UTM tracking - aggiunge UTM di default su ogni click, propaga quelli in ingresso se presenti
 (function() {
   var params = new URLSearchParams(window.location.search);
-  var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-  var utmParams = new URLSearchParams();
-  var hasUtm = false;
-  utmKeys.forEach(function(k) {
-    if (params.get(k)) { utmParams.set(k, params.get(k)); hasUtm = true; }
-  });
 
-  if (hasUtm) {
-    // CL card - append UTMs to cocktaillegend.app
-    var clCard = document.getElementById('card-cl');
-    if (clCard) {
-      var clUrl = new URL(clCard.href);
-      utmParams.forEach(function(v, k) { clUrl.searchParams.set(k, v); });
-      clCard.href = clUrl.toString();
-    }
-    // BC card - append UTMs to bar-catering page
-    var bcCard = document.getElementById('card-bc');
-    if (bcCard) {
-      var bcUrl = new URL(bcCard.href);
-      utmParams.forEach(function(v, k) { bcUrl.searchParams.set(k, v); });
-      bcCard.href = bcUrl.toString();
-    }
+  function buildUrl(baseUrl, defaultUtms) {
+    var url = new URL(baseUrl);
+    // Applica UTM di default
+    Object.keys(defaultUtms).forEach(function(k) {
+      url.searchParams.set(k, defaultUtms[k]);
+    });
+    // Se ci sono UTM in ingresso, sovrascrivono i default
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
+      if (params.get(k)) url.searchParams.set(k, params.get(k));
+    });
+    return url.toString();
+  }
+
+  var clCard = document.getElementById('card-cl');
+  if (clCard) {
+    clCard.href = buildUrl('https://cocktaillegend.app', {
+      utm_source:   'danielsportelli',
+      utm_medium:   'referral',
+      utm_campaign: 'homepage_card'
+    });
+  }
+
+  var bcCard = document.getElementById('card-bc');
+  if (bcCard) {
+    bcCard.href = buildUrl('https://theonebar.it', {
+      utm_source:   'danielsportelli',
+      utm_medium:   'referral',
+      utm_campaign: 'homepage_card'
+    });
   }
 })();
 </script>
