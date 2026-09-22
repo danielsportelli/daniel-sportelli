@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Restaurant Cocktail System | Daniel Sportelli</title>
-<meta name="description" content="Attiva un nuovo centro di ricavo nel tuo ristorante, formando il personale già presente, senza assumere un bartender dedicato.">
+<title>Cocktail System | Daniel Sportelli</title>
+<meta name="description" content="Attiva un nuovo centro di ricavo nel tuo hotel, formando il personale già presente, senza assumere un bartender dedicato.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://danielsportelli.it/RCS/rcs-landing.html">
+<link rel="canonical" href="https://danielsportelli.it/cocktail-system/hotel/hcs-landing.html">
 
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://danielsportelli.it/RCS/rcs-landing.html">
-<meta property="og:title" content="Restaurant Cocktail System | Daniel Sportelli">
-<meta property="og:description" content="Attiva un nuovo centro di ricavo nel tuo ristorante, formando il personale già presente, senza assumere un bartender dedicato.">
+<meta property="og:url" content="https://danielsportelli.it/cocktail-system/hotel/hcs-landing.html">
+<meta property="og:title" content="Cocktail System | Daniel Sportelli">
+<meta property="og:description" content="Attiva un nuovo centro di ricavo nel tuo hotel, formando il personale già presente, senza assumere un bartender dedicato.">
 <meta property="og:locale" content="it_IT">
-<meta property="og:image" content="https://danielsportelli.it/RCS/og-rcs.png">
+<meta property="og:image" content="https://danielsportelli.it/cocktail-system/hotel/og-hcs.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Restaurant Cocktail System | Daniel Sportelli">
-<meta name="twitter:description" content="Attiva un nuovo centro di ricavo nel tuo ristorante, formando il personale già presente, senza assumere un bartender dedicato.">
+<meta name="twitter:title" content="Cocktail System | Daniel Sportelli">
+<meta name="twitter:description" content="Attiva un nuovo centro di ricavo nel tuo hotel, formando il personale già presente, senza assumere un bartender dedicato.">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Restaurant Cocktail System">
+<meta name="apple-mobile-web-app-title" content="Cocktail System">
 <meta name="theme-color" content="#1F1F1F">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxRjFGMUYiLz48dGV4dCB4PSIzMiIgeT0iNDUiIGZvbnQtZmFtaWx5PSJNYW5yb3BlLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNDNThBMkEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSItMSI+RFM8L3RleHQ+PC9zdmc+">
@@ -144,7 +144,17 @@ function _loadTracking() {
   }
 
   /* ── HERO ── */
-  .hero { padding: 2.75rem 0 3rem; text-align:center; }
+  .hero { padding: 2.75rem 0 3rem; text-align:center; position:relative; overflow:hidden; }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background: url('../assets/hero-cocktail.webp') center 30% / cover no-repeat;
+    opacity:0.5;
+    -webkit-mask-image: radial-gradient(ellipse 65% 85% at 50% 38%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,1) 100%);
+    mask-image: radial-gradient(ellipse 65% 85% at 50% 38%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,1) 100%);
+    pointer-events:none;
+  }
+  .hero .wrap { position:relative; z-index:1; }
   .eyebrow {
     display:inline-block;
     font-size:0.68rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
@@ -373,18 +383,18 @@ function _loadTracking() {
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <div class="brand"><span>Restaurant</span> Cocktail System</div>
-  <a href="#cta-finale" class="cta-mini" onclick="if(typeof gtag==='function')gtag('event','click_cta_topbar_rcs',{event_category:'cta'});">Prenota la call</a>
+  <div class="brand"><span>Cocktail</span> System</div>
+  <a href="#cta-finale" class="cta-mini" onclick="if(typeof gtag==='function')gtag('event','click_cta_topbar',{event_category:'cta'});">Prenota la call</a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">Per ristoranti con servizio serale strutturato</div>
+    <div class="eyebrow">Per hotel con ristorante interno</div>
     <h1>State perdendo fatturato <em>ogni sera</em>, in silenzio.</h1>
-    <p class="sub">Se durante l'aperitivo, la cena e il dopocena il vostro ristorante non propone un'offerta cocktail strutturata, è un'occasione di ricavo che, con lo staff che avete già in organico, resta inespressa sera dopo sera.</p>
+    <p class="sub">Se durante l'aperitivo, la cena e il dopocena il vostro hotel non propone un'offerta cocktail strutturata, è un'occasione di ricavo che, con lo staff che avete già in organico, resta inespressa sera dopo sera.</p>
     <div class="hero-ctas">
-      <a href="#cta-finale" class="btn-primary" onclick="if(typeof gtag==='function')gtag('event','click_cta_hero_rcs',{event_category:'cta'});">Prenota la tua call</a>
+      <a href="#cta-finale" class="btn-primary" onclick="if(typeof gtag==='function')gtag('event','click_cta_hero',{event_category:'cta'});">Prenota la tua call</a>
       <a href="#soluzione" class="btn-secondary">Scopri come funziona</a>
     </div>
     <div class="badges">
@@ -399,9 +409,9 @@ function _loadTracking() {
 <section>
   <div class="wrap reveal">
     <p class="s-label">Il problema</p>
-    <h2 class="s-title">Il cliente ha solo due opzioni al tavolo.</h2>
-    <p class="s-text">Vino o bibite. Un drink d'apertura o di chiusura pasto, che potrebbe alzare facilmente lo scontrino medio, resta un'occasione mancata sera dopo sera.</p>
-    <div class="callout"><b>Il punto non è diventare un cocktail bar.</b> È smettere di lasciare sul tavolo uno scontrino medio che oggi è del tutto raggiungibile con le risorse che già avete in sala.</div>
+    <h2 class="s-title">Ogni sera, l'ospite ha solo tre opzioni.</h2>
+    <p class="s-text">Acqua, vino o bibite. Oppure decide di cercare un'esperienza più completa fuori dall'hotel, finendo per spendere i propri soldi altrove, mentre voi restate a guardare.</p>
+    <div class="callout"><b>Il punto non è diventare un cocktail bar.</b> È smettere di lasciare sul tavolo un fatturato che oggi è del tutto raggiungibile con le risorse che già avete in hotel.</div>
   </div>
 </section>
 
@@ -409,8 +419,8 @@ function _loadTracking() {
 <section class="light" id="soluzione">
   <div class="wrap reveal">
     <p class="s-label">La soluzione</p>
-    <h2 class="s-title">Restaurant Cocktail System.</h2>
-    <p class="s-text">Il metodo prevede la formazione di 3 camerieri che fanno già parte del vostro organico (idealmente proprio 3, per garantire un turnover e coprire tutti i turni di servizio), perché diventino operatori in grado di servire con sicurezza una drink list professionale, in ogni momento del servizio.</p>
+    <h2 class="s-title">Cocktail System.</h2>
+    <p class="s-text">Il metodo prevede la formazione di 3 camerieri che fanno già parte del vostro organico (idealmente proprio 3, per garantire un turnover e coprire tutti i turni di servizio), perché diventino operatori in grado di servire con sicurezza una drink list professionale, in ogni momento della giornata.</p>
     <p class="s-text">Non devono conoscere la mixology. Devono semplicemente:</p>
     <ul class="checklist yes">
       <li><span class="mark">✓</span><span>seguire ricette standard;</span></li>
@@ -429,9 +439,9 @@ function _loadTracking() {
     <p class="s-text">Dall'accettazione del preventivo al supporto post-formazione, ogni fase è organizzata insieme a voi.</p>
     <div class="steps-grid">
       <div class="step-card"><div class="step-num">01</div><div class="step-title">Accettazione del preventivo</div><div class="step-desc">Confermiamo insieme i parametri della struttura direttamente sul preventivo, per partire allineati su ogni dettaglio.</div></div>
-      <div class="step-card"><div class="step-num">02</div><div class="step-title">Primo sopralluogo</div><div class="step-desc">Verifichiamo gli spazi di lavoro e le attrezzature già disponibili. Vi presentiamo anche il gestionale RCS Manager.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Primo sopralluogo</div><div class="step-desc">Verifichiamo gli spazi di lavoro e le attrezzature già disponibili. Vi presentiamo anche il gestionale Cocktail System Manager.</div></div>
       <div class="step-card"><div class="step-num">03</div><div class="step-title">Attrezzature e prodotti</div><div class="step-desc">Vi comunichiamo cosa acquistare, con indicazione di un fornitore di zona.</div></div>
-      <div class="step-card"><div class="step-num">04</div><div class="step-title">Formazione</div><div class="step-desc">Una giornata pratica (6 ore). Restano nel ristorante ricettario, dispensa e accesso al gestionale.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Formazione</div><div class="step-desc">Una giornata pratica (6 ore). Restano in hotel ricettario, dispensa e accesso al gestionale.</div></div>
       <div class="step-card"><div class="step-num">05</div><div class="step-title">Supporto post-formazione</div><div class="step-desc">Nei 30 giorni successivi restiamo disponibili da remoto per dubbi e delucidazioni.</div></div>
     </div>
   </div>
@@ -442,14 +452,14 @@ function _loadTracking() {
   <div class="wrap reveal">
     <p class="s-label">Il pacchetto</p>
     <h2 class="s-title">Cosa comprende il servizio.</h2>
-    <p class="s-text">Obiettivo: aumentare lo scontrino medio e il fatturato del ristorante, con il personale che già avete.</p>
+    <p class="s-text">Obiettivo: aumentare lo scontrino medio e il fatturato dell'hotel, con il personale che già avete.</p>
     <ul class="checklist yes">
       <li><span class="mark">✓</span><span>Primo sopralluogo per analisi e organizzazione degli spazi di lavoro</span></li>
       <li><span class="mark">✓</span><span>Verifica delle attrezzature esistenti ed elenco di quelle da acquistare</span></li>
       <li><span class="mark">✓</span><span>Drink list studiata ad hoc e selezione distillati premium, con ricettario PDF sempre a portata di mano</span></li>
       <li><span class="mark">✓</span><span>Dispensa di supporto con le nozioni teoriche e tecniche dietro alle ricette</span></li>
       <li><span class="mark">✓</span><span>Formazione pratica del personale in un'unica giornata (6 ore)</span></li>
-      <li><span class="mark">✓</span><span>Accesso al gestionale online RCS Manager per il calcolo del drink cost e dei margini</span></li>
+      <li><span class="mark">✓</span><span>Accesso al gestionale online Cocktail System Manager per il calcolo del drink cost e dei margini</span></li>
       <li><span class="mark">✓</span><span>Standard di servizio</span></li>
       <li><span class="mark">✓</span><span>Su richiesta, indicazione di un fornitore grossista di zona</span></li>
       <li><span class="mark">✓</span><span>Supporto da remoto (WhatsApp o email) nei 30 giorni successivi alla formazione</span></li>
@@ -461,17 +471,17 @@ function _loadTracking() {
 <section>
   <div class="wrap reveal">
     <p class="s-label">A chi è rivolto</p>
-    <h2 class="s-title">Un servizio pensato per ristoranti precisi.</h2>
+    <h2 class="s-title">Un servizio pensato per hotel precisi.</h2>
     <p class="s-text">Non è per tutti, e questo è un vantaggio: quando incontra la struttura giusta, funziona davvero.</p>
     <div class="fit-card">
       <div class="fit-grid">
         <div>
           <div class="fit-col-label">È per voi se</div>
           <ul class="checklist yes">
-            <li><span class="mark">✓</span><span>Siete aperti a cena, con servizio serale strutturato</span></li>
-            <li><span class="mark">✓</span><span>Servite già vino e bevande, ma non avete un'offerta cocktail</span></li>
-            <li><span class="mark">✓</span><span>Avete almeno 40-50 posti a sedere</span></li>
-            <li><span class="mark">✓</span><span>Avete uno scontrino medio coerente con un locale di fascia</span></li>
+            <li><span class="mark">✓</span><span>Avete un ristorante interno</span></li>
+            <li><span class="mark">✓</span><span>Servite già vino, birra, caffetteria</span></li>
+            <li><span class="mark">✓</span><span>Avete almeno 20 camere</span></li>
+            <li><span class="mark">✓</span><span>Avete una clientela che resta in hotel anche la sera</span></li>
           </ul>
         </div>
         <div>
@@ -479,13 +489,13 @@ function _loadTracking() {
           <ul class="checklist no">
             <li><span class="mark">✕</span><span>Avete già un cocktail bar avviato</span></li>
             <li><span class="mark">✕</span><span>Avete già un bartender professionista</span></li>
-            <li><span class="mark">✕</span><span>Siete aperti solo a pranzo, senza servizio serale</span></li>
-            <li><span class="mark">✕</span><span>Siete una trattoria orientata a pranzi di lavoro veloci</span></li>
+            <li><span class="mark">✕</span><span>Non avete un ristorante interno</span></li>
+            <li><span class="mark">✕</span><span>Siete una struttura stagionale molto piccola</span></li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="callout">Se il locale è aperto anche a pranzo, con una clientela business (uffici, professionisti), il potenziale del servizio si estende anche a quella fascia.</div>
+    <div class="callout">Più camere ha l'hotel, maggiore è il potenziale del servizio.</div>
   </div>
 </section>
 
@@ -493,9 +503,9 @@ function _loadTracking() {
 <section class="dark-alt">
   <div class="wrap reveal">
     <p class="s-label">Il gestionale</p>
-    <h2 class="s-title">RCS Manager: il drink cost sempre sotto controllo.</h2>
-    <p class="s-text">Ogni ristorante riceve accesso a RCS Manager, il gestionale pensato per calcolare in automatico il costo di ogni drink e verificare che i prezzi in carta siano corretti, senza fogli Excel da tenere aggiornati a mano.</p>
-    <div class="manager-shot"><img src="/immagini/RCS/rcs-manager-screenshot.webp" alt="Anteprima del gestionale RCS Manager, turni di servizio e KPI bar" loading="lazy"></div>
+    <h2 class="s-title">Cocktail System Manager: il drink cost sempre sotto controllo.</h2>
+    <p class="s-text">Ogni hotel riceve accesso a Cocktail System Manager, il gestionale pensato per calcolare in automatico il costo di ogni drink e verificare che i prezzi in carta siano corretti, senza fogli Excel da tenere aggiornati a mano.</p>
+    <div class="manager-shot"><img src="/immagini/HCS/hcs-manager-screenshot.webp" alt="Anteprima del gestionale Cocktail System Manager, report drink cost e margini" loading="lazy"></div>
     <p class="manager-caption">Anteprima del report riepilogativo (dati dimostrativi)</p>
     <p class="s-text">Basta inserire il prezzo di vendita di ogni drink: il sistema calcola automaticamente il costo, il margine e segnala con un semaforo se il prezzo è impostato correttamente. Se cambia il prezzo di un prodotto, tutti i cocktail che lo utilizzano si aggiornano da soli.</p>
   </div>
@@ -517,12 +527,12 @@ function _loadTracking() {
       <div class="growth-chart">
         <svg viewBox="0 0 600 190" preserveAspectRatio="none" role="img" aria-label="Grafico che mostra la crescita del fatturato aggiuntivo da 0 a 18.000 euro nell'arco di 12 mesi">
           <defs>
-            <linearGradient id="gcFillRCS" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="gcFillHCS" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#C58A2A" stop-opacity="0.4"/>
               <stop offset="100%" stop-color="#C58A2A" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <path class="gc-area" fill="url(#gcFillRCS)" d="M0,182 C70,178 130,166 190,150 C250,132 300,104 360,78 C420,54 480,30 596,12 L600,12 L600,190 L0,190 Z"/>
+          <path class="gc-area" fill="url(#gcFillHCS)" d="M0,182 C70,178 130,166 190,150 C250,132 300,104 360,78 C420,54 480,30 596,12 L600,12 L600,190 L0,190 Z"/>
           <path class="gc-line" fill="none" stroke="#C58A2A" stroke-width="3.5" stroke-linecap="round" d="M0,182 C70,178 130,166 190,150 C250,132 300,104 360,78 C420,54 480,30 596,12"/>
           <circle class="gc-dot" cx="596" cy="12" r="7" fill="#C58A2A"/>
         </svg>
@@ -534,16 +544,16 @@ function _loadTracking() {
     <p class="s-text">Con un investimento contenuto, il servizio si ripaga in pochi giorni di attività a regime, e continua a generare fatturato ogni sera, senza costi di personale aggiuntivi.</p>
     <div class="price-box">
       <div class="label">Investimento per l'attivazione completa del servizio</div>
-      <div class="price">1.490 € + IVA</div>
+      <div class="price">1.999 € + IVA</div>
       <div class="note">ove dovuta</div>
     </div>
     <div class="price-terms">
-      <b style="color:var(--txt2)">Prezzo valido</b> per ristoranti con sede operativa nelle province di Bergamo, Brescia, Milano e Lecco.<br>
+      <b style="color:var(--txt2)">Prezzo valido</b> per hotel con sede operativa nelle province di Bergamo, Brescia, Milano e Lecco.<br>
       Per strutture con sede operativa in altre province della Lombardia è previsto un supplemento fisso di 200 € + IVA per le spese di trasferta.<br>
       Per strutture fuori regione, il supplemento verrà definito in fase di preventivo.
     </div>
     <div style="text-align:center;margin-top:1.8rem;">
-      <a href="#cta-finale" class="btn-primary" onclick="if(typeof gtag==='function')gtag('event','click_cta_roi_rcs',{event_category:'cta'});">Prenota la tua call</a>
+      <a href="#cta-finale" class="btn-primary" onclick="if(typeof gtag==='function')gtag('event','click_cta_roi',{event_category:'cta'});">Prenota la tua call</a>
     </div>
   </div>
 </section>
@@ -564,7 +574,7 @@ function _loadTracking() {
       </details>
       <details class="faq-item">
         <summary><span>Quanto costa davvero?</span><span class="icon">+</span></summary>
-        <div class="faq-a"><p>1.490 € + IVA per l'attivazione completa, per ristoranti nelle province di Bergamo, Brescia, Milano e Lecco. Fuori da queste zone è previsto un supplemento per le spese di trasferta, definito in fase di preventivo.</p></div>
+        <div class="faq-a"><p>1.999 € + IVA per l'attivazione completa, per hotel nelle province di Bergamo, Brescia, Milano e Lecco. Fuori da queste zone è previsto un supplemento per le spese di trasferta, definito in fase di preventivo.</p></div>
       </details>
       <details class="faq-item">
         <summary><span>Quanto tempo richiede l'attivazione?</span><span class="icon">+</span></summary>
@@ -572,7 +582,7 @@ function _loadTracking() {
       </details>
       <details class="faq-item">
         <summary><span>Cosa succede dopo la formazione?</span><span class="icon">+</span></summary>
-        <div class="faq-a"><p>Restano nel ristorante il ricettario, la dispensa tecnica e l'accesso al gestionale RCS Manager. Per 30 giorni siamo disponibili da remoto per dubbi e delucidazioni.</p></div>
+        <div class="faq-a"><p>Restano in hotel il ricettario, la dispensa tecnica e l'accesso al gestionale Cocktail System Manager. Per 30 giorni siamo disponibili da remoto per dubbi e delucidazioni.</p></div>
       </details>
     </div>
   </div>
@@ -583,7 +593,7 @@ function _loadTracking() {
   <div class="wrap reveal">
     <p class="s-label">Chi sono</p>
     <div class="bio-row">
-      <div class="bio-photo"><img src="/immagini/RCS/daniel-photo.webp" alt="Daniel Sportelli" loading="lazy"></div>
+      <div class="bio-photo"><img src="/immagini/HCS/daniel-photo.webp" alt="Daniel Sportelli" loading="lazy"></div>
       <div>
         <h2 class="s-title" style="margin-bottom:0.6rem;">Quindici anni al servizio dell'ospitalità.</h2>
         <p class="s-text" style="margin-bottom:0;">Sono Daniel Sportelli, bartender professionista e formatore da oltre 15 anni. Il mio percorso è partito dal servizio quotidiano dietro al bancone, per poi ampliarsi verso la gestione operativa dei locali e, negli ultimi anni, verso la formazione professionale, oggi il cuore del mio lavoro.</p>
@@ -597,8 +607,8 @@ function _loadTracking() {
   <div class="wrap reveal cta-final">
     <p class="s-label">Come procedere</p>
     <h2>Il prossimo passo è una call di 30 minuti.</h2>
-    <p>Verifichiamo insieme se il vostro ristorante ha il profilo giusto e i punti chiave per attivare il servizio, senza impegno.</p>
-    <a href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" id="cta-book-call" class="btn-primary" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_cta_finale_rcs',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'rcs_book_call'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'rcs_book_call'});if(typeof Calendly!=='undefined'){Calendly.initPopupWidget({url:'https://calendly.com/danielsportelli/pre-attivazione-cocktail-system'});return false;}">Prenota la tua call</a>
+    <p>Verifichiamo insieme se il vostro hotel ha il profilo giusto e i punti chiave per attivare il servizio, senza impegno.</p>
+    <a href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" id="cta-book-call" class="btn-primary" target="_blank" rel="noopener" onclick="if(typeof gtag==='function')gtag('event','click_cta_finale',{event_category:'cta'});if(typeof fbq==='function')fbq('trackCustom','ClickCTA',{content_name:'hcs_book_call'});if(typeof ttq!=='undefined')ttq.track('ClickButton',{content_name:'hcs_book_call'});if(typeof Calendly!=='undefined'){Calendly.initPopupWidget({url:'https://calendly.com/danielsportelli/pre-attivazione-cocktail-system'});return false;}">Prenota la tua call</a>
   </div>
 </section>
 
