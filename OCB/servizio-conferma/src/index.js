@@ -34,10 +34,11 @@ export default {
     await env.LIMITI.put(kGiorno, String(nTot + 1), { expirationTtl: 172800 });
 
     const html = '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.6;color:#1e293b;max-width:520px;">'
-      + '<p>Grazie per la richiesta.</p><p>Abbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.</p></div>';
+      + '<p>Grazie per la richiesta.</p><p>Abbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.</p>'
+      + '<p style="margin-top:24px;">Daniel Sportelli<br><a href="mailto:info@danielsportelli.it" style="color:#1e293b;">info@danielsportelli.it</a></p></div>';
     const r = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ sender: { name: 'Open Cocktail Bar', email: 'info@cocktaillegend.app' }, replyTo: { name: 'Open Cocktail Bar', email: 'info@danielsportelli.it' },
-        to: [{ email }], subject: 'Richiesta ricevuta — Open Cocktail Bar', htmlContent: html, textContent: 'Grazie per la richiesta.\n\nAbbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.' }) });
+        to: [{ email }], subject: 'Conferma ricezione richiesta', htmlContent: html, textContent: 'Grazie per la richiesta.\n\nAbbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.\n\nDaniel Sportelli\ninfo@danielsportelli.it' }) });
     if (!r.ok) { console.error('Brevo: HTTP ' + r.status + ' ' + (await r.text()).slice(0, 200)); return risposta({ ok: false }, 502, origin); }
     return risposta({ ok: true }, 200, origin);
   }
