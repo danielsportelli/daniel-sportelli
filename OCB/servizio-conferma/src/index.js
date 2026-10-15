@@ -5,9 +5,9 @@
 // Secret: BREVO_API_KEY.  Binding: LIMITI (KV).
 const ORIGINI = ['https://danielsportelli.it', 'https://www.danielsportelli.it'];
 const MAX_ORA_PER_IP = 3, MAX_GIORNO = 60;
-// Mittente: info@danielsportelli.it. Finche il dominio danielsportelli.it non e autenticato su Brevo l'invio resta SPENTO (non si usa un indirizzo di Cocktail Legend).
+// Mittente: Daniel Sportelli <info@danielsportelli.it> (dominio autenticato su Brevo il 15/10/2026). Non usare mai indirizzi di Cocktail Legend: sono progetti separati.
 const MITTENTE = { name: 'Daniel Sportelli', email: 'info@danielsportelli.it' };
-const INVIO_ATTIVO = false;
+const INVIO_ATTIVO = true;
 
 function cors(origin) {
   return { 'Access-Control-Allow-Origin': ORIGINI.includes(origin) ? origin : ORIGINI[0], 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type', 'Vary': 'Origin' };
