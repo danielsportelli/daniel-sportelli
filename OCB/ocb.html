@@ -2574,6 +2574,8 @@ function _loadTracking() {
     })
     .then(function(r) { return r.json(); })
     .then(function(res) {
+      // Conferma al cliente (email breve via servizio ocb-conferma): parte solo se Web3Forms ha accettato la richiesta, e non blocca mai la pagina.
+      if (!res || res.success !== false) { try { fetch('https://ocb-conferma.daniel-sportelli.workers.dev/conferma', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, sito: '' }) }).catch(function(){}); } catch (e) {} }
       if (typeof gtag === 'function') gtag('event', 'preventivo_inviato', { event_category: 'lead' });
       if (typeof fbq === 'function') fbq('track', 'Lead');
       if (typeof ttq !== 'undefined') ttq.track('SubmitForm');

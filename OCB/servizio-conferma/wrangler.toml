@@ -1,0 +1,7 @@
+name = "ocb-conferma"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[[kv_namespaces]]
+binding = "LIMITI"
+id = "b3b95785fc0840c482951cda73b889b7"
