@@ -6,7 +6,7 @@
 const ORIGINI = ['https://danielsportelli.it', 'https://www.danielsportelli.it'];
 const MAX_ORA_PER_IP = 3, MAX_GIORNO = 60;
 // Mittente: info@danielsportelli.it. Finche il dominio danielsportelli.it non e autenticato su Brevo l'invio resta SPENTO (non si usa un indirizzo di Cocktail Legend).
-const MITTENTE = { name: 'Open Cocktail Bar', email: 'info@danielsportelli.it' };
+const MITTENTE = { name: 'Daniel Sportelli', email: 'info@danielsportelli.it' };
 const INVIO_ATTIVO = false;
 
 function cors(origin) {
@@ -41,7 +41,7 @@ export default {
       + '<p>Grazie per la richiesta.</p><p>Abbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.</p>'
       + '<p style="margin-top:24px;">Daniel Sportelli<br><a href="mailto:info@danielsportelli.it" style="color:#1e293b;">info@danielsportelli.it</a></p></div>';
     const r = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ sender: MITTENTE, replyTo: { name: 'Open Cocktail Bar', email: 'info@danielsportelli.it' },
+      body: JSON.stringify({ sender: MITTENTE, replyTo: { name: 'Daniel Sportelli', email: 'info@danielsportelli.it' },
         to: [{ email }], subject: 'Conferma ricezione richiesta', htmlContent: html, textContent: 'Grazie per la richiesta.\n\nAbbiamo ricevuto i tuoi dati e ti risponderemo nel minor tempo possibile.\n\nDaniel Sportelli\ninfo@danielsportelli.it' }) });
     if (!r.ok) { console.error('Brevo: HTTP ' + r.status + ' ' + (await r.text()).slice(0, 200)); return risposta({ ok: false }, 502, origin); }
     return risposta({ ok: true }, 200, origin);
