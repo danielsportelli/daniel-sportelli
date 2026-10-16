@@ -258,6 +258,15 @@ function _loadTracking() {
   .q-res .ticks { margin-top: .8rem; }
   .q-res .ticks li { color: var(--txt-d); }
 
+  /* ── Autore (hero) e CTA di sezione ─────────── */
+  .author { display: flex; align-items: center; gap: 1rem; margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line-d); }
+  .author img { width: 64px; height: 80px; object-fit: cover; flex: none; border: 2px solid var(--ink-3); }
+  .author b { display: block; font-family: Manrope, sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
+  .author span { display: block; font-size: .88rem; color: var(--txt-d2); margin-top: .15rem; line-height: 1.4; }
+  .cta-row { margin-top: 2.2rem; }
+  .cta-row .btn { width: 100%; }
+  @media (min-width: 600px) { .cta-row .btn { width: auto; } }
+
   /* ── Cookie ───────────────────────────────── */
   #cookie-banner { position: fixed; left: max(.75rem, env(safe-area-inset-left, 0px)); right: max(.75rem, env(safe-area-inset-right, 0px)); bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); z-index: 99999; max-width: 520px; margin: 0 auto; background: var(--ink-2); border: 1px solid var(--line-d); border-top: 4px solid var(--amber); padding: 1.2rem 1.3rem; box-shadow: 0 20px 50px rgba(0,0,0,.5); display: none; }
   #cookie-banner.show { display: block; }
@@ -348,6 +357,10 @@ function _loadTracking() {
     <div class="hero-cta">
       <a class="btn" data-cta="hero" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
       <p>30 minuti, senza impegno. Vi chiedo un numero di telefono: all'orario scelto vi chiamo io. Non siete sicuri di rientrare nei parametri? <a href="#prenota">Verificate qui</a>.</p>
+      <div class="author">
+        <img src="../immagini/HCS/daniel-photo.webp" alt="Daniel Sportelli" width="64" height="80">
+        <div><b>Daniel Sportelli</b><span>Bartender professionista e formatore da oltre 15 anni</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -371,6 +384,7 @@ function _loadTracking() {
         <p class="muted">Se al tavolo ci sono solo vino e bibite, un drink d'apertura o di chiusura pasto, che potrebbe alzare lo scontrino medio, resta un'occasione mancata.</p>
       </div>
     </div>
+    <div class="cta-row"><a class="btn" data-cta="problema" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a></div>
   </div>
 </section>
 
@@ -404,6 +418,7 @@ function _loadTracking() {
       <div><h3>Gestionale per il drink cost</h3><p>Una piattaforma online per calcolare costo e margine di ogni drink.</p></div>
       <div><h3>Supporto da remoto per 30 giorni</h3><p>Via WhatsApp o email, per dubbi e chiarimenti dopo la formazione.</p></div>
     </div>
+    <div class="cta-row"><a class="btn" data-cta="pacchetto" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a></div>
   </div>
 </section>
 
@@ -419,6 +434,7 @@ function _loadTracking() {
       <img src="../immagini/CS/cocktail-system-manager.webp" alt="Anteprima del Cocktail System Manager: elenco di sei cocktail con costo, drink cost e indicazione se il margine è in target, basso o alto." width="1875" height="1292" loading="lazy">
       <figcaption>Anteprima del Cocktail System Manager, con dati dimostrativi. È una sola schermata: il gestionale comprende anche le sezioni Prodotti, Drink List, Giacenze e Report.</figcaption>
     </figure>
+    <div class="cta-row"><a class="btn" data-cta="gestionale" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a></div>
   </div>
 </section>
 
