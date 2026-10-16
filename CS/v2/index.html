@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cocktail System | Daniel Sportelli</title>
 <meta name="description" content="Formate 3 camerieri già in organico e attivate un'offerta cocktail nel vostro hotel o ristorante, senza assumere un bartender. Prenotate la call conoscitiva da 30 minuti.">
 <meta name="robots" content="noindex, nofollow">
@@ -60,7 +60,9 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  img { max-width: 100%; display: block; }
+  body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  input { -webkit-user-select: text; user-select: text; }
+  img { max-width: 100%; display: block; -webkit-user-drag: none; user-drag: none; }
   a { color: inherit; }
   :focus-visible { outline: 3px solid var(--amber-l); outline-offset: 3px; }
 
@@ -70,7 +72,7 @@
   h3 { font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; margin-bottom: .5rem; }
   p + p { margin-top: 1rem; }
 
-  .wrap  { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+  .wrap  { max-width: 1080px; margin: 0 auto; padding-left: max(1.25rem, env(safe-area-inset-left, 0px)); padding-right: max(1.25rem, env(safe-area-inset-right, 0px)); }
   .prose { max-width: 40rem; }
   section { padding: 4.5rem 0; }
   @media (max-width: 640px) { section { padding: 3.25rem 0; } }
@@ -94,7 +96,7 @@
   .btn-sm { padding: .6rem 1.1rem; min-height: 40px; font-size: .9rem; }
 
   /* ── Barra superiore ──────────────────────── */
-  .topbar { position: sticky; top: 0; z-index: 20; background: rgba(31,31,31,.96); border-bottom: 1px solid var(--line-d); }
+  .topbar { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); background: rgba(31,31,31,.96); border-bottom: 1px solid var(--line-d); }
   .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
   .brand { font-size: 1.15rem; letter-spacing: -.02em; }
   .brand span { color: var(--amber); }
@@ -234,7 +236,7 @@
   .q-res .ticks li { color: var(--txt-d); }
 
   /* ── Footer ───────────────────────────────── */
-  footer { background: var(--ink); color: var(--txt-d2); padding: 2.2rem 0 2.6rem; font-size: .88rem; border-top: 1px solid var(--line-d); }
+  footer { background: var(--ink); color: var(--txt-d2); padding: 2.2rem 0 calc(2.6rem + env(safe-area-inset-bottom, 0px)); font-size: .88rem; border-top: 1px solid var(--line-d); }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem; }
 </style>
 </head>
@@ -243,7 +245,7 @@
 <header class="topbar">
   <div class="wrap">
     <div class="brand"><span>Cocktail</span> System</div>
-    <a class="btn btn-sm" href="https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
+    <a class="btn btn-sm" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
   </div>
 </header>
 
@@ -302,7 +304,7 @@
     </div>
 
     <div class="hero-cta">
-      <a class="btn" href="https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+      <a class="btn" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
       <p>30 minuti, senza impegno. Vi chiedo un numero di telefono: all'orario scelto vi chiamo io. Non siete sicuri di rientrare nei parametri? <a href="#prenota">Verificate qui</a>.</p>
     </div>
   </div>
@@ -487,7 +489,7 @@
     <div class="quiz" id="quiz" aria-live="polite">
       <noscript>
         <p>Per verificare i requisiti serve JavaScript. In breve: hotel con almeno 20 camere, ristorante interno e nessun cocktail bar attivo; oppure ristorante con almeno 50 posti e nessun bartender.</p>
-        <p style="margin-top:1rem"><a class="btn" href="https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system" rel="noopener">Prenota la call da 30 minuti</a></p>
+        <p style="margin-top:1rem"><a class="btn" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" rel="noopener">Prenota la call da 30 minuti</a></p>
       </noscript>
     </div>
   </div>
@@ -506,8 +508,14 @@
 (function () {
   'use strict';
 
+  // Testo non copiabile (i campi del calcolatore restano modificabili)
+  function isField(e) { return e.target && e.target.closest && e.target.closest('input'); }
+  ['contextmenu', 'selectstart', 'copy', 'cut', 'dragstart'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) { if (!isField(e)) e.preventDefault(); });
+  });
+
   /* ── CALCOLATORE ────────────────────────────────────────── */
-  var fmt = new Intl.NumberFormat('it-IT');
+  var fmt = new Intl.NumberFormat('it-IT', { useGrouping: 'always' });
   var inC = document.getElementById('in-cocktail');
   var inG = document.getElementById('in-giorni');
   var inP = document.getElementById('in-prezzo');
@@ -555,7 +563,7 @@
   });
 
   /* ── QUESTIONARIO (solo nel browser) ────────────────────── */
-  var CAL = 'https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system';
+  var CAL = 'https://calendly.com/danielsportelli/pre-attivazione-cocktail-system';
   var YN = [['si', 'Sì'], ['no', 'No']];
   var Q = {
     tipo:      { t: 'Che tipo di struttura gestite?', o: [['hotel', 'Hotel'], ['ristorante', 'Ristorante'], ['altro', 'Altro']] },
