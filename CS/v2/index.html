@@ -118,16 +118,18 @@ function _loadTracking() {
 
   /* ── Barra superiore ──────────────────────── */
   .topbar { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); background: rgba(31,31,31,.96); border-bottom: 1px solid var(--line-d); }
-  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 66px; padding-top: .45rem; padding-bottom: .45rem; }
   .brand { font-size: 1.15rem; letter-spacing: -.02em; }
   .brand span { color: var(--amber); }
+  .brand-wrap { min-width: 0; }
+  .brand-sub { font-size: .76rem; line-height: 1.2; color: var(--txt-d2); margin-top: .1rem; }
 
   /* ── Hero + scontrino ─────────────────────── */
   .hero { padding: 3.5rem 0 5rem; }
   .hero-grid {
     display: grid; gap: 2.5rem 4rem; align-items: start;
     grid-template-columns: 1fr;
-    grid-template-areas: "text" "receipt" "cta";
+    grid-template-areas: "text" "cta" "receipt";
   }
   .hero-text { grid-area: text; }
   .hero-receipt { grid-area: receipt; }
@@ -274,7 +276,9 @@ function _loadTracking() {
   .price .btn { margin-top: 1.8rem; }
 
   /* ── Footer ───────────────────────────────── */
-  footer { background: var(--ink); color: var(--txt-d2); padding: 2.2rem 0 calc(2.6rem + env(safe-area-inset-bottom, 0px)); font-size: .88rem; border-top: 1px solid var(--line-d); }
+  footer { background: var(--ink); color: #8D8A83; padding: 2.2rem 0 calc(2.6rem + env(safe-area-inset-bottom, 0px)); font-size: .88rem; border-top: 1px solid var(--line-d); }
+  footer a { color: #8D8A83; }
+  footer a:hover, footer .cookie-prefs-link:hover { color: var(--txt-d2); }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem; }
 </style>
 </head>
@@ -282,7 +286,7 @@ function _loadTracking() {
 
 <header class="topbar">
   <div class="wrap">
-    <div class="brand"><span>Cocktail</span> System</div>
+    <div class="brand-wrap"><div class="brand"><span>Cocktail</span> System</div><div class="brand-sub">Servizio per hotel e ristoranti</div></div>
     <a class="btn btn-sm" data-cta="topbar" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
   </div>
 </header>
@@ -294,7 +298,7 @@ function _loadTracking() {
   <div class="wrap hero-grid">
     <div class="hero-text">
       <h1>Quanto fatturato lasciate <em>sul tavolo</em> ogni sera?</h1>
-      <p class="sub">Se ogni sera vendete vino e bibite ma nessun cocktail, il fatturato che manca ha una cifra. Mettete i vostri numeri nello scontrino e guardatela.</p>
+      <p class="sub">Se ogni sera nel vostro hotel o ristorante vendete vino e bibite ma nessun cocktail, il fatturato che manca ha una cifra. Mettete i vostri numeri nello scontrino e guardatela.</p>
     </div>
 
     <div class="hero-receipt">
