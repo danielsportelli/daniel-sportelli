@@ -136,17 +136,17 @@
   .receipt-head p { font-size: .82rem; color: var(--txt-l2); margin-top: .2rem; }
   .r-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px dashed var(--line-l); }
   .r-row label, .r-row .r-name { font-size: .95rem; font-weight: 500; }
-  .stepper { display: inline-flex; align-items: stretch; border: 2px solid var(--ink); background: var(--white); }
+  .stepper { display: inline-flex; align-items: stretch; flex: 0 0 150px; width: 150px; border: 2px solid var(--ink); background: var(--white); }
   .stepper button {
     width: 40px; border: 0; background: var(--ink); color: var(--white); font: 600 1.25rem/1 Poppins, sans-serif; cursor: pointer;
   }
   .stepper button:hover { background: var(--ink-3); }
   .stepper input {
-    width: 3.9rem; border: 0; text-align: center; font: 600 1.05rem Poppins, sans-serif; color: var(--ink);
+    flex: 1 1 0; width: 0; border: 0; text-align: center; font: 600 1.05rem Poppins, sans-serif; color: var(--ink);
     background: transparent; padding: .5rem 0; -moz-appearance: textfield; appearance: textfield; min-width: 0;
   }
   .stepper input::-webkit-outer-spin-button, .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .stepper .unit { display: flex; align-items: center; padding-right: .55rem; font-weight: 600; }
+  .stepper .unit { display: flex; align-items: center; padding-right: .5rem; font-weight: 600; }
   .r-sum { padding: .9rem 0 .2rem; }
   .r-line { display: flex; justify-content: space-between; align-items: baseline; font-size: .95rem; padding: .15rem 0; }
   .r-line b { font-variant-numeric: tabular-nums; font-weight: 600; }
@@ -243,7 +243,7 @@
 <header class="topbar">
   <div class="wrap">
     <div class="brand"><span>Cocktail</span> System</div>
-    <a class="btn btn-sm" href="#prenota">Prenota la call</a>
+    <a class="btn btn-sm" href="https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
   </div>
 </header>
 
@@ -302,8 +302,8 @@
     </div>
 
     <div class="hero-cta">
-      <a class="btn" href="#prenota">Prenota la call conoscitiva</a>
-      <p>Prima poche domande veloci, per capire se il servizio fa per voi.</p>
+      <a class="btn" href="https://calendly.com/danielsportelli/call-conoscitiva-hotel-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+      <p>30 minuti, senza impegno. Vi chiedo un numero di telefono: all'orario scelto vi chiamo io. Non siete sicuri di rientrare nei parametri? <a href="#prenota">Verificate qui</a>.</p>
     </div>
   </div>
 </section>
@@ -481,7 +481,7 @@
   <div class="wrap">
     <div class="prose">
       <h2>Verificate se il servizio fa per voi.</h2>
-      <p class="muted">Poche domande sulla vostra struttura. Se rientrate nei parametri, potete prenotare la call da 30 minuti. Le risposte restano nel vostro browser.</p>
+      <p class="muted">Poche domande sulla vostra struttura, per capire se il servizio è adatto prima di prenotare. Se rientrate nei parametri, trovate qui il pulsante per la call da 30 minuti. Le risposte restano nel vostro browser.</p>
     </div>
 
     <div class="quiz" id="quiz" aria-live="polite">
