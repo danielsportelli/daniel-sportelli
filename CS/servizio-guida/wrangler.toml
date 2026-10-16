@@ -1,0 +1,12 @@
+name = "cs-guida"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+# Numero della lista Brevo per chi dà il consenso facoltativo a ricevere altre email (Contatti > Liste). Vuoto = nessuno viene aggiunto alla lista.
+[vars]
+BREVO_LIST_ID = ""
+
+# Stesso KV di ocb-conferma (le chiavi di questo servizio iniziano con "cs:").
+[[kv_namespaces]]
+binding = "LIMITI"
+id = "b3b95785fc0840c482951cda73b889b7"
