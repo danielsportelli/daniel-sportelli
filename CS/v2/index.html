@@ -23,6 +23,27 @@
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxRjFGMUYiLz48dGV4dCB4PSIzMiIgeT0iNDUiIGZvbnQtZmFtaWx5PSJNYW5yb3BlLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNDNThBMkEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSItMSI+RFM8L3RleHQ+PC9zdmc+">
 
+<script>
+var _trackingLoaded = false;
+function _loadTracking() {
+  if (_trackingLoaded) return;
+  _trackingLoaded = true;
+  var ga = document.createElement('script');
+  ga.async = true;
+  ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-F7T6WNL4MY';
+  document.head.appendChild(ga);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-F7T6WNL4MY');
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1470192824752382');
+  fbq('track','PageView');
+  !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};ttq.load('D6LJGOJC77U4L3UM22C0');ttq.page();}(window,document,'ttq');
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -198,7 +219,7 @@
   /* ── Chi sono ─────────────────────────────── */
   .bio { display: grid; gap: 2rem; align-items: center; }
   @media (min-width: 760px) { .bio { grid-template-columns: 300px 1fr; gap: 3.5rem; } }
-  .bio img { width: 100%; max-width: 300px; aspect-ratio: 4/5; object-fit: cover; border: 2px solid var(--ink); }
+  .bio img { width: 100%; max-width: 300px; aspect-ratio: 4/5; object-fit: cover; border: 2px solid var(--ink-3); }
 
   /* ── FAQ ──────────────────────────────────── */
   .faq { margin-top: 1.8rem; max-width: 46rem; border-top: 1px solid var(--line-d); }
@@ -235,6 +256,23 @@
   .q-res .ticks { margin-top: .8rem; }
   .q-res .ticks li { color: var(--txt-d); }
 
+  /* ── Cookie ───────────────────────────────── */
+  #cookie-banner { position: fixed; left: max(.75rem, env(safe-area-inset-left, 0px)); right: max(.75rem, env(safe-area-inset-right, 0px)); bottom: calc(.75rem + env(safe-area-inset-bottom, 0px)); z-index: 99999; max-width: 520px; margin: 0 auto; background: var(--ink-2); border: 1px solid var(--line-d); border-top: 4px solid var(--amber); padding: 1.2rem 1.3rem; box-shadow: 0 20px 50px rgba(0,0,0,.5); display: none; }
+  #cookie-banner.show { display: block; }
+  #cookie-banner p { font-size: .82rem; line-height: 1.55; color: var(--txt-d2); margin-bottom: 1rem; }
+  .cookie-actions { display: flex; gap: .7rem; flex-wrap: wrap; }
+  .cookie-btn { flex: 1; min-width: 130px; font: 600 .85rem Poppins, sans-serif; padding: .75rem 1rem; min-height: 44px; border-radius: 0; cursor: pointer; border: 2px solid var(--amber); }
+  .cookie-btn-accept { background: var(--amber); color: var(--ink); }
+  .cookie-btn-reject { background: transparent; color: var(--txt-d); border-color: var(--line-d); }
+  .cookie-prefs-link { background: none; border: 0; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+
+  /* ── Prezzo ───────────────────────────────── */
+  .price { margin-top: 1.8rem; border-top: 2px solid var(--ink); padding-top: 1.4rem; max-width: 40rem; }
+  .price .num { font-size: clamp(2.6rem, 9vw, 3.8rem); letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .price .num small { font-family: Poppins, sans-serif; font-weight: 500; font-size: 1rem; letter-spacing: 0; color: var(--txt-l2); margin-left: .4rem; }
+  .price-terms { margin-top: 1.4rem; font-size: .92rem; color: var(--txt-l2); display: grid; gap: .6rem; }
+  .price .btn { margin-top: 1.8rem; }
+
   /* ── Footer ───────────────────────────────── */
   footer { background: var(--ink); color: var(--txt-d2); padding: 2.2rem 0 calc(2.6rem + env(safe-area-inset-bottom, 0px)); font-size: .88rem; border-top: 1px solid var(--line-d); }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem; }
@@ -245,7 +283,7 @@
 <header class="topbar">
   <div class="wrap">
     <div class="brand"><span>Cocktail</span> System</div>
-    <a class="btn btn-sm" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
+    <a class="btn btn-sm" data-cta="topbar" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call</a>
   </div>
 </header>
 
@@ -304,7 +342,7 @@
     </div>
 
     <div class="hero-cta">
-      <a class="btn" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+      <a class="btn" data-cta="hero" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
       <p>30 minuti, senza impegno. Vi chiedo un numero di telefono: all'orario scelto vi chiamo io. Non siete sicuri di rientrare nei parametri? <a href="#prenota">Verificate qui</a>.</p>
     </div>
   </div>
@@ -387,7 +425,7 @@
     <p class="muted prose">Dalla prima telefonata al supporto dopo la formazione.</p>
     <ol class="steps">
       <li><span class="num">1</span><h3>Call conoscitiva</h3><p>30 minuti per capire la vostra struttura e verificare insieme se il servizio è adatto. Vi chiamo io.</p></li>
-      <li><span class="num">2</span><h3>Preventivo</h3><p>Il prezzo lo condivido dopo la call, quando so di che struttura si tratta. Si prosegue solo se siete d'accordo.</p></li>
+      <li><span class="num">2</span><h3>Preventivo</h3><p>Dopo la call vi mando il preventivo, in linea con il prezzo indicato in pagina. Si prosegue solo se siete d'accordo.</p></li>
       <li><span class="num">3</span><h3>Sopralluogo</h3><p>Guardo gli spazi di lavoro e le attrezzature, e vi presento il gestionale.</p></li>
       <li><span class="num">4</span><h3>Attrezzature e prodotti</h3><p>Vi dico cosa acquistare e, se serve, vi indico un fornitore di zona.</p></li>
       <li><span class="num">5</span><h3>Formazione</h3><p>Una giornata pratica da 6 ore con i 3 camerieri. A voi restano ricettario, dispensa e gestionale.</p></li>
@@ -437,8 +475,25 @@
   </div>
 </section>
 
-<!-- CHI SONO -->
+<!-- PREZZO -->
 <section class="on-light">
+  <div class="wrap">
+    <h2>Quanto costa.</h2>
+    <p class="muted prose">Un prezzo unico per l'attivazione completa del servizio.</p>
+    <div class="price">
+      <div class="num">1.999 €<small>+ IVA</small></div>
+      <div class="price-terms">
+        <p>Per l'attivazione completa: tutto quello che trovate nella sezione "Cosa comprende".</p>
+        <p><b>Prezzo valido</b> per hotel e ristoranti con sede operativa nelle province di Bergamo, Brescia, Milano e Lecco.</p>
+        <p>Per le altre province della Lombardia è previsto un supplemento fisso di 200 € + IVA per le spese di trasferta. Fuori regione, il supplemento si definisce nel preventivo.</p>
+      </div>
+      <a class="btn" data-cta="prezzo" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+    </div>
+  </div>
+</section>
+
+<!-- CHI SONO -->
+<section class="on-dark">
   <div class="wrap bio">
     <img src="../../immagini/HCS/daniel-photo.webp" alt="Daniel Sportelli" width="300" height="375" loading="lazy">
     <div class="prose">
@@ -450,7 +505,7 @@
 </section>
 
 <!-- FAQ -->
-<section class="on-dark">
+<section class="on-dark2">
   <div class="wrap">
     <h2>Domande frequenti.</h2>
     <div class="faq">
@@ -468,7 +523,7 @@
       </details>
       <details>
         <summary>Quanto costa?</summary>
-        <div class="a"><p>Il prezzo non è in pagina: lo condivido dopo la call, quando so di che struttura si tratta e posso farvi un preventivo preciso. La call non impegna a nulla.</p></div>
+        <div class="a"><p>L'attivazione completa costa 1.999 € + IVA per hotel e ristoranti nelle province di Bergamo, Brescia, Milano e Lecco. Nel resto della Lombardia si aggiungono 200 € + IVA di trasferta; fuori regione la trasferta si definisce nel preventivo. La call non impegna a nulla.</p></div>
       </details>
       <details>
         <summary>Come funziona la call?</summary>
@@ -500,9 +555,17 @@
 <footer>
   <div class="wrap">
     <span>© <span id="year">2026</span> Daniel Sportelli. Tutti i diritti riservati.</span>
-    <a href="../../privacy-policy.html">Privacy Policy</a>
+    <span><a href="../../privacy-policy.html">Privacy Policy</a> · <button type="button" class="cookie-prefs-link" id="cookie-prefs-btn">Preferenze cookie</button></span>
   </div>
 </footer>
+
+<div id="cookie-banner" role="dialog" aria-label="Cookie">
+  <p>Usiamo cookie tecnici (necessari) e, solo con il tuo consenso, cookie di analisi (Google Analytics) e marketing (Meta, TikTok) per capire come viene usato il sito. Puoi cambiare idea in qualsiasi momento dal link "Preferenze cookie" in fondo alla pagina.</p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn cookie-btn-reject" id="cookie-reject-btn">Rifiuta</button>
+    <button type="button" class="cookie-btn cookie-btn-accept" id="cookie-accept-btn">Accetta tutti</button>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -512,6 +575,30 @@
   function isField(e) { return e.target && e.target.closest && e.target.closest('input'); }
   ['contextmenu', 'selectstart', 'copy', 'cut', 'dragstart'].forEach(function (ev) {
     document.addEventListener(ev, function (e) { if (!isField(e)) e.preventDefault(); });
+  });
+
+  /* ── CONSENSO E TRACKING (stessi ID della landing precedente) ── */
+  var KEY = 'ds_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  function store(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function choose(v) { store(v); banner.classList.remove('show'); if (v === 'granted') _loadTracking(); }
+  var sv = saved();
+  if (sv === 'granted') _loadTracking(); else if (sv !== 'denied') banner.classList.add('show');
+  document.getElementById('cookie-accept-btn').addEventListener('click', function () { choose('granted'); });
+  document.getElementById('cookie-reject-btn').addEventListener('click', function () { choose('denied'); });
+  document.getElementById('cookie-prefs-btn').addEventListener('click', function () { banner.classList.add('show'); });
+
+  function track(name) {
+    try {
+      if (typeof gtag === 'function') gtag('event', name, { event_category: 'cta' });
+      if (typeof fbq === 'function') fbq('trackCustom', 'ClickCTA', { content_name: 'cocktail_system_book_call_v2', cta: name });
+      if (typeof ttq !== 'undefined') ttq.track('ClickButton', { content_name: 'cocktail_system_book_call_v2', cta: name });
+    } catch (e) {}
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-cta]');
+    if (a) track('v2_click_cta_' + a.getAttribute('data-cta'));
   });
 
   /* ── CALCOLATORE ────────────────────────────────────────── */
@@ -659,9 +746,12 @@
       res.appendChild(title);
       res.appendChild(el('p', '', 'Potete prenotare la call conoscitiva da 30 minuti. Nel modulo vi chiederò un numero di telefono: all\'orario scelto vi chiamo io.'));
       var a = el('a', 'btn', 'Prenota la call da 30 minuti');
+      a.setAttribute('data-cta', 'quiz');
+      try { if (typeof gtag === 'function') gtag('event', 'v2_quiz_in_target'); } catch (e) {}
       a.href = CAL; a.target = '_blank'; a.rel = 'noopener';
       res.appendChild(a);
     } else {
+      try { if (typeof gtag === 'function') gtag('event', 'v2_quiz_fuori_parametri'); } catch (e) {}
       res.appendChild(el('span', 'q-pill', 'Informazione'));
       title = el('h3', '', 'Perché oggi il servizio non è attivabile.');
       res.appendChild(title);
