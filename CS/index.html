@@ -258,6 +258,19 @@ function _loadTracking() {
   .q-res .ticks { margin-top: .8rem; }
   .q-res .ticks li { color: var(--txt-d); }
 
+  /* ── Confronto costo bartender ─────────────── */
+  .cmp { margin-top: 2.2rem; max-width: 40rem; }
+  .cmp .bar { margin-bottom: 1.3rem; }
+  .cmp .lab { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; font-size: .95rem; margin-bottom: .45rem; }
+  .cmp .lab b { font-family: Manrope, sans-serif; font-weight: 800; font-size: 1.15rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .cmp .tr { height: 34px; background: rgba(255,255,255,.1); }
+  .cmp .fi { height: 100%; }
+  .cmp .cost .fi { width: 100%; background: var(--txt-d2); }
+  .cmp .rev .fi { width: 45%; background: var(--amber); }
+  .cmp .scale { font-size: .82rem; color: var(--txt-d2); }
+  .bartender { border-top: 1px solid var(--line-d); }
+  .bartender h3 { margin-top: 2rem; }
+
   /* ── Autore (hero) e CTA di sezione ─────────── */
   .author { display: flex; align-items: center; gap: 1rem; margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line-d); }
   .author img { width: 64px; height: 80px; object-fit: cover; flex: none; border: 2px solid var(--ink-3); }
@@ -402,6 +415,29 @@ function _loadTracking() {
       </ul>
       <p class="note">È lo stesso principio di una catena di ristorazione: la standardizzazione.</p>
     </div>
+  </div>
+</section>
+
+<!-- PERCHÉ NON UN BARTENDER -->
+<section class="on-dark bartender">
+  <div class="wrap">
+    <div class="prose">
+      <h2>Perché non serve assumere un bartender.</h2>
+      <p>La prima idea, quando si pensa ai cocktail, è assumere un bartender. Facciamo due conti, con cifre indicative e non contrattuali.</p>
+      <h3>Quanto può costare</h3>
+      <p class="muted">Un bartender dipendente può costare, tutto compreso, dell'ordine di <b>40.000 € l'anno</b>: la retribuzione su 14 mensilità, i contributi a carico del datore, il TFR e ciò che non si vede, come ferie, malattia, permessi e sostituzioni. È una stima, e il valore reale dipende dal contratto e dal livello.</p>
+      <h3>Quanto lavoro c'è davvero</h3>
+      <p class="muted">Nello scenario di questa pagina, 10 cocktail al giorno per 15 giorni al mese, i giorni sono i tre di punta della settimana (venerdì, sabato e domenica) per quattro settimane, cioè 12, più 3 sparsi nel resto del mese. In tutto circa <b>150 cocktail al mese</b>: una mole di lavoro bassa, che con un'organizzazione adatta rientra nel servizio di sala.</p>
+    </div>
+    <div class="cmp" role="img" aria-label="Confronto in scala tra il costo stimato di un bartender dipendente, circa 40.000 euro l'anno, e il fatturato aggiuntivo dello scenario, 18.000 euro l'anno.">
+      <div class="bar cost"><div class="lab"><span>Costo stimato di un bartender dipendente</span><b>~40.000 €</b></div><div class="tr"><div class="fi"></div></div></div>
+      <div class="bar rev"><div class="lab"><span>Fatturato aggiuntivo dello scenario (non margine)</span><b>18.000 €</b></div><div class="tr"><div class="fi"></div></div></div>
+      <div class="scale">Valori annui, cifre indicative. Le barre sono in scala tra loro.</div>
+    </div>
+    <div class="prose">
+      <p style="margin-top:1.6rem">Con questi volumi il costo è più del doppio del fatturato stimato: assumere non ha senso. Serve invece un metodo, perché i cocktail escano giusti, equilibrati e bevibili, e il cliente ne ordini anche un secondo. Per questo servono una formazione al personale e una drink list mirata alla struttura, abbastanza ampia da coprire aperitivo, cena e dopocena. È qui che entra in gioco Cocktail System.</p>
+    </div>
+    <div class="cta-row"><a class="btn" data-cta="bartender" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a></div>
   </div>
 </section>
 
