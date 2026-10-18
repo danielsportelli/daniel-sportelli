@@ -1,6 +1,6 @@
-// Servizio "ocb-conferma": manda a chi compila il modulo di Open Cocktail Bar un'email di conferma breve, via Brevo.
+// Servizio "ocb-conferma" (nome interno, il servizio ora si chiama Cocktail Catering): manda a chi compila il modulo di Cocktail Catering un'email di conferma breve, via Brevo.
 // La notifica a Daniel resta a Web3Forms (la pagina la invia come prima); qui parte SOLO la conferma al cliente.
-// Chiamata dalla pagina OCB/ocb.html: POST {email, sito, nome, data, ospiti, nazione, preventivo, extra, note} -> {ok:true}. Solo "email" e obbligatoria:
+// Chiamata dalla pagina CC/index.html: POST {email, sito, nome, data, ospiti, nazione, preventivo, extra, note} -> {ok:true}. Solo "email" e obbligatoria:
 // gli altri campi servono al riepilogo nell'email e, se mancano, l'email resta valida. Il campo "sito" e una trappola per i bot (deve restare vuoto).
 // Protezioni: solo dal sito danielsportelli.it, email valida, max 3 invii all'ora per IP e max 60 al giorno in totale.
 // Secret: BREVO_API_KEY.  Binding: LIMITI (KV).
@@ -18,7 +18,7 @@ const risposta = (corpo, stato, origin) => new Response(JSON.stringify(corpo), {
 // Testo ricevuto dalla pagina: ripulito e accorciato; tutto cio che finisce nell'email viene "escapato".
 const pulisci = (v, max) => String(v == null ? '' : v).replace(/[\u0000-\u001f]+/g, ' ').trim().slice(0, max);
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const PAGINA = 'https://danielsportelli.it/OCB/ocb.html';
+const PAGINA = 'https://danielsportelli.it/CC/';
 
 // Email di conferma: dice chi scrive, di quale servizio si tratta e riepiloga la richiesta (le righe vuote non compaiono).
 function emailConferma(d) {
@@ -29,14 +29,14 @@ function emailConferma(d) {
     : '';
   const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1e293b;max-width:540px;">'
     + '<p>' + saluto + '</p>'
-    + '<p>grazie per la tua richiesta a <b>Open Cocktail Bar</b>, il servizio di open bar professionale per eventi aziendali.</p>'
+    + '<p>grazie per la tua richiesta a <b>Cocktail Catering</b>, il servizio di open bar professionale per eventi aziendali.</p>'
     + (righe.length ? '<p>Ecco il riepilogo di quello che ci hai inviato:</p>' + tabella : '')
     + '<p>Ti rispondiamo <b>entro 24 ore</b> a questo indirizzo email, con il preventivo e i prossimi passi.</p>'
-    + '<p style="margin-top:24px;">A presto,<br>Daniel Sportelli<br>Open Cocktail Bar<br><a href="mailto:info@danielsportelli.it" style="color:#1e293b;">info@danielsportelli.it</a></p>'
-    + '<p style="margin-top:28px;font-size:12px;color:#94a3b8;line-height:1.5;">Hai ricevuto questa email perché hai compilato il modulo su <a href="' + PAGINA + '" style="color:#94a3b8;">danielsportelli.it/OCB</a>. Se non sei stato tu, puoi ignorarla.</p></div>';
-  const testo = saluto + '\n\ngrazie per la tua richiesta a Open Cocktail Bar, il servizio di open bar professionale per eventi aziendali.\n\n'
+    + '<p style="margin-top:24px;">A presto,<br>Daniel Sportelli<br>Cocktail Catering<br><a href="mailto:info@danielsportelli.it" style="color:#1e293b;">info@danielsportelli.it</a></p>'
+    + '<p style="margin-top:28px;font-size:12px;color:#94a3b8;line-height:1.5;">Hai ricevuto questa email perché hai compilato il modulo su <a href="' + PAGINA + '" style="color:#94a3b8;">danielsportelli.it/CC</a>. Se non sei stato tu, puoi ignorarla.</p></div>';
+  const testo = saluto + '\n\ngrazie per la tua richiesta a Cocktail Catering, il servizio di open bar professionale per eventi aziendali.\n\n'
     + (righe.length ? 'Ecco il riepilogo di quello che ci hai inviato:\n' + righe.map((r) => '- ' + r[0] + ': ' + r[1]).join('\n') + '\n\n' : '')
-    + 'Ti rispondiamo entro 24 ore a questo indirizzo email, con il preventivo e i prossimi passi.\n\nA presto,\nDaniel Sportelli\nOpen Cocktail Bar\ninfo@danielsportelli.it\n\n'
+    + 'Ti rispondiamo entro 24 ore a questo indirizzo email, con il preventivo e i prossimi passi.\n\nA presto,\nDaniel Sportelli\nCocktail Catering\ninfo@danielsportelli.it\n\n'
     + 'Hai ricevuto questa email perché hai compilato il modulo su ' + PAGINA + '. Se non sei stato tu, puoi ignorarla.';
   return { html, testo };
 }
@@ -68,7 +68,7 @@ export default {
     const mail = emailConferma(d);
     const r = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': env.BREVO_API_KEY, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ sender: MITTENTE, replyTo: { name: 'Daniel Sportelli', email: 'info@danielsportelli.it' },
-        to: [{ email }], subject: 'Open Cocktail Bar: abbiamo ricevuto la tua richiesta', htmlContent: mail.html, textContent: mail.testo }) });
+        to: [{ email }], subject: 'Cocktail Catering: abbiamo ricevuto la tua richiesta', htmlContent: mail.html, textContent: mail.testo }) });
     if (!r.ok) { console.error('Brevo: HTTP ' + r.status + ' ' + (await r.text()).slice(0, 200)); return risposta({ ok: false }, 502, origin); }
     return risposta({ ok: true }, 200, origin);
   }
