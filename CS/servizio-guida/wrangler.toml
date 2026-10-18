@@ -4,7 +4,7 @@ compatibility_date = "2026-01-01"
 
 # Numero della lista Brevo per chi dà il consenso facoltativo a ricevere altre email (Contatti > Liste). Vuoto = nessuno viene aggiunto alla lista.
 [vars]
-BREVO_LIST_ID = ""
+BREVO_LIST_ID = "3"
 
 # Stesso KV di ocb-conferma (le chiavi di questo servizio iniziano con "cs:").
 [[kv_namespaces]]
