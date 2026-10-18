@@ -31,12 +31,12 @@ function emailConferma(d) {
     + '<p>' + saluto + '</p>'
     + '<p>grazie per la tua richiesta a <b>Cocktail Catering</b>, il servizio di open bar professionale per eventi aziendali.</p>'
     + (righe.length ? '<p>Ecco il riepilogo di quello che ci hai inviato:</p>' + tabella : '')
-    + '<p>Ti rispondiamo <b>entro 24 ore</b> a questo indirizzo email, con il preventivo e i prossimi passi.</p>'
+    + '<p>Ti rispondiamo <b>il prima possibile</b> a questo indirizzo email, con il preventivo e i prossimi passi.</p>'
     + '<p style="margin-top:24px;">A presto,<br>Daniel Sportelli<br>Cocktail Catering<br><a href="mailto:info@danielsportelli.it" style="color:#1e293b;">info@danielsportelli.it</a></p>'
     + '<p style="margin-top:28px;font-size:12px;color:#94a3b8;line-height:1.5;">Hai ricevuto questa email perché hai compilato il modulo su <a href="' + PAGINA + '" style="color:#94a3b8;">danielsportelli.it/CC</a>. Se non sei stato tu, puoi ignorarla.</p></div>';
   const testo = saluto + '\n\ngrazie per la tua richiesta a Cocktail Catering, il servizio di open bar professionale per eventi aziendali.\n\n'
     + (righe.length ? 'Ecco il riepilogo di quello che ci hai inviato:\n' + righe.map((r) => '- ' + r[0] + ': ' + r[1]).join('\n') + '\n\n' : '')
-    + 'Ti rispondiamo entro 24 ore a questo indirizzo email, con il preventivo e i prossimi passi.\n\nA presto,\nDaniel Sportelli\nCocktail Catering\ninfo@danielsportelli.it\n\n'
+    + 'Ti rispondiamo il prima possibile a questo indirizzo email, con il preventivo e i prossimi passi.\n\nA presto,\nDaniel Sportelli\nCocktail Catering\ninfo@danielsportelli.it\n\n'
     + 'Hai ricevuto questa email perché hai compilato il modulo su ' + PAGINA + '. Se non sei stato tu, puoi ignorarla.';
   return { html, testo };
 }
