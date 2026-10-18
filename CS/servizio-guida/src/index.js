@@ -37,14 +37,14 @@ function emailHtml(d) {
     + '</td></tr></table>'
     + '<p>Nella guida, che trovate in allegato, spiego come calcolare il potenziale della vostra struttura, perché assumere un bartender non è la strada giusta con questi volumi e cosa serve per partire.</p>'
     + '<p><a href="' + PDF_URL + '" style="color:#8F6016;">Se non vedete l\'allegato, scaricate la guida da qui.</a></p>'
-    + '<p>Se la vostra struttura è nel profilo giusto, il passo successivo è una call conoscitiva di 30 minuti, senza impegno: <a href="' + CALL_URL + '" style="color:#8F6016;">prenotate qui</a>. Vi chiederò un numero di telefono: all\'orario scelto vi ricontatto io.</p>'
+    + '<p>Se la vostra struttura è nel profilo giusto, il passo successivo è una call conoscitiva di 30 minuti, senza impegno: <a href="' + CALL_URL + '" style="color:#8F6016;">prenotate qui</a>.</p>'
     + '<p style="margin-top:24px;">Daniel Sportelli<br><a href="mailto:info@danielsportelli.it" style="color:#1F1F1F;">info@danielsportelli.it</a></p>'
     + '</div>';
 }
 function emailTesto(d) {
   return 'Grazie per l\'interesse. Ecco la mini guida e, qui sotto, lo scontrino con i numeri che avete inserito.\n\nCocktail al giorno: ' + d.cocktail + '\nGiorni al mese: ' + d.giorni + '\nPrezzo medio: ' + euro(d.prezzo) + '\nAl mese: ' + euro(d.mese) + '\nTotale in 12 mesi: ' + euro(d.anno)
     + '\n\nStima sul fatturato, non sul margine. È uno scenario, non una promessa di risultato.\n\nLa guida è in allegato. Se non la vedete, scaricatela qui: ' + PDF_URL
-    + '\n\nPer prenotare la call conoscitiva di 30 minuti: ' + CALL_URL + '\nVi chiederò un numero di telefono: all\'orario scelto vi ricontatto io.\n\nDaniel Sportelli\ninfo@danielsportelli.it';
+    + '\n\nPer prenotare la call conoscitiva di 30 minuti: ' + CALL_URL + '\n\nDaniel Sportelli\ninfo@danielsportelli.it';
 }
 
 async function brevoMail(env, corpo) {
