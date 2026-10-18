@@ -142,7 +142,10 @@ function _loadTracking() {
   .hero .sub { font-size: 1.12rem; color: var(--txt-d2); margin-top: 1.4rem; max-width: 34rem; }
   .hero-cta .btn { width: 100%; }
   .hero-cta p { font-size: .9rem; color: var(--txt-d2); margin-top: .8rem; }
-  @media (min-width: 600px) { .hero-cta .btn { width: auto; } }
+  .cta-pair { display: grid; gap: .8rem; }
+  .cta-pair .btn-ghost { color: var(--txt-d); border-color: var(--line-d); border-width: 2px; }
+  .cta-pair .btn-ghost:hover { border-color: var(--amber); background: rgba(197,138,42,.1); }
+  @media (min-width: 600px) { .hero-cta .btn { width: auto; } .cta-pair { display: flex; flex-wrap: wrap; } }
 
   .receipt {
     position: relative; background: var(--paper); color: var(--ink);
@@ -381,13 +384,14 @@ function _loadTracking() {
             <div class="num" id="out-anno" aria-live="polite">18.000 €</div>
           </div>
         </div>
-        <p class="r-foot">Stima sul fatturato, non sul margine.<br>È uno scenario, non una promessa di risultato.</p>
-        <p class="r-foot" style="margin-top:.6rem"><a id="link-guida" href="#guida" hidden>Ricevi questo scontrino e la mini guida via email</a></p>
-      </div>
+        <p class="r-foot">Stima sul fatturato, non sul margine.<br>È uno scenario, non una promessa di risultato.</p>      </div>
     </div>
 
     <div class="hero-cta">
-      <a class="btn" data-cta="hero" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+      <div class="cta-pair">
+        <a class="btn" data-cta="hero" href="https://calendly.com/danielsportelli/pre-attivazione-cocktail-system" target="_blank" rel="noopener">Prenota la call conoscitiva</a>
+        <a class="btn btn-ghost" id="btn-approfondisci" data-ev="approfondisci" href="#guida" hidden>Approfondisci</a>
+      </div>
       <p>30 minuti, senza impegno. Vi chiedo un numero di telefono: all'orario scelto vi chiamo io. Non siete sicuri di rientrare nei parametri? <a href="#prenota">Verificate qui</a>.</p>
       <div class="author">
         <img src="../immagini/HCS/daniel-photo.webp" alt="Daniel Sportelli" width="64" height="80">
@@ -693,6 +697,8 @@ function _loadTracking() {
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[data-cta]');
     if (a) track('v2_click_cta_' + a.getAttribute('data-cta'));
+    var b = e.target.closest && e.target.closest('a[data-ev]');
+    if (b) { try { if (typeof gtag === 'function') gtag('event', 'v2_click_' + b.getAttribute('data-ev'), { event_category: 'cta' }); } catch (x) {} }
   });
 
   /* ── CALCOLATORE ────────────────────────────────────────── */
@@ -750,7 +756,7 @@ function _loadTracking() {
   var GUIDA_URL = 'https://cs-guida.daniel-sportelli.workers.dev/richiesta';
   if (GUIDA_ATTIVA) {
     document.getElementById('guida').hidden = false;
-    document.getElementById('link-guida').hidden = false;
+    document.getElementById('btn-approfondisci').hidden = false;
   }
   var fg = document.getElementById('form-guida');
   fg.addEventListener('submit', function (e) {
