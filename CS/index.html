@@ -615,7 +615,7 @@ function _loadTracking() {
   <div class="wrap">
     <div class="prose">
       <h2>Non siete ancora pronti per la call?</h2>
-      <p class="muted">Ricevete via email il vostro scontrino, con i numeri che avete inserito nel calcolatore, e la mini guida "Il fatturato che manca": come calcolare il potenziale della struttura, perché assumere un bartender non è la strada giusta con questi volumi e cosa serve per partire.</p>
+      <p class="muted">Inserite la vostra email e ricevete la mini guida "Il fatturato che manca": come calcolare il potenziale della vostra struttura, perché assumere un bartender non è la strada giusta con questi volumi e cosa serve per partire.</p>
     </div>
     <form class="gform" id="form-guida" novalidate>
       <div>
@@ -623,9 +623,9 @@ function _loadTracking() {
         <input type="email" id="g-email" name="email" autocomplete="email" inputmode="email" placeholder="nome@struttura.it" required>
       </div>
       <div class="hp" aria-hidden="true"><label>Sito <input type="text" id="g-sito" name="sito" tabindex="-1" autocomplete="off"></label></div>
-      <label class="chk"><input type="checkbox" id="g-consenso" required><span>Voglio ricevere via email lo scontrino e la guida. Ho letto la <a href="../privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+      <label class="chk"><input type="checkbox" id="g-consenso" required><span>Voglio ricevere via email la mini guida. Ho letto la<a href="../privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
       <label class="chk"><input type="checkbox" id="g-marketing"><span>Facoltativo: acconsento a ricevere altre email su Cocktail System. Potete disiscrivervi quando volete.</span></label>
-      <button class="btn" type="submit" id="g-invia">Ricevi scontrino e guida</button>
+      <button class="btn" type="submit" id="g-invia">Ricevi la mini guida</button>
       <div class="gmsg" id="g-msg" role="status" aria-live="polite"></div>
     </form>
   </div>
@@ -780,7 +780,7 @@ function _loadTracking() {
         } catch (x) {}
         var fine = document.createElement('div');
         fine.className = 'gdone';
-        fine.innerHTML = '<h3>Controllate la posta.</h3><p>Vi ho inviato lo scontrino e la guida. Se non li vedete entro un minuto, guardate anche nella cartella dello spam.</p>';
+        fine.innerHTML = '<h3>Controllate la posta.</h3><p>Vi ho inviato la mini guida. Se non la vedete entro un minuto, guardate anche nella cartella dello spam.</p>';
         fg.replaceWith(fine);
       })
       .catch(function () { btn.disabled = false; errore('Non siamo riusciti a inviare l\'email. Riprovate tra poco o scrivete a info@danielsportelli.it.'); });
