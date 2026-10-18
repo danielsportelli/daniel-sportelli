@@ -26,7 +26,7 @@ const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 function emailHtml(d) {
   const riga = (a, b) => '<tr><td style="padding:9px 0;border-bottom:1px dashed #cfc9bb;font-size:15px;">' + a + '</td><td style="padding:9px 0;border-bottom:1px dashed #cfc9bb;font-size:15px;text-align:right;font-weight:600;">' + b + '</td></tr>';
   return '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1F1F1F;max-width:520px;margin:0 auto;padding:8px;">'
-    + '<p>Ecco il tuo scontrino e la mini guida.</p>'
+    + '<p>Ecco il vostro scontrino e la mini guida.</p>'
     + '<table role="presentation" style="width:100%;border-collapse:collapse;background:#FBF8F1;padding:18px;margin:18px 0;"><tr><td style="padding:18px;">'
     + '<div style="text-align:center;font-weight:800;font-size:18px;padding-bottom:10px;border-bottom:2px dashed #cfc9bb;">Cocktail System</div>'
     + '<table role="presentation" style="width:100%;border-collapse:collapse;">'
@@ -35,16 +35,16 @@ function emailHtml(d) {
     + '<table role="presentation" style="width:100%;border-collapse:collapse;margin-top:12px;"><tr><td style="font-weight:600;font-size:14px;">Totale in 12 mesi</td><td style="text-align:right;font-weight:800;font-size:28px;">' + euro(d.anno) + '</td></tr></table>'
     + '<div style="font-size:12px;color:#55524A;text-align:center;margin-top:14px;">Stima sul fatturato, non sul margine.<br>È uno scenario, non una promessa di risultato.</div>'
     + '</td></tr></table>'
-    + '<p>Nella guida, che trovi in allegato, spiego come calcolare il potenziale della tua struttura, perché assumere un bartender non è la strada giusta con questi volumi e cosa serve per partire.</p>'
-    + '<p><a href="' + PDF_URL + '" style="color:#8F6016;">Se non vedi l\'allegato, scarica la guida da qui.</a></p>'
-    + '<p>Se la tua struttura è nel profilo giusto, il passo successivo è una call conoscitiva di 30 minuti, senza impegno: <a href="' + CALL_URL + '" style="color:#8F6016;">prenota qui</a>. Ti chiederò un numero di telefono e, all\'orario scelto, ti chiamo io.</p>'
+    + '<p>Nella guida, che trovate in allegato, spiego come calcolare il potenziale della vostra struttura, perché assumere un bartender non è la strada giusta con questi volumi e cosa serve per partire.</p>'
+    + '<p><a href="' + PDF_URL + '" style="color:#8F6016;">Se non vedete l\'allegato, scaricate la guida da qui.</a></p>'
+    + '<p>Se la vostra struttura è nel profilo giusto, il passo successivo è una call conoscitiva di 30 minuti, senza impegno: <a href="' + CALL_URL + '" style="color:#8F6016;">prenotate qui</a>. Vi chiederò un numero di telefono: all\'orario scelto vi ricontatto io.</p>'
     + '<p style="margin-top:24px;">Daniel Sportelli<br><a href="mailto:info@danielsportelli.it" style="color:#1F1F1F;">info@danielsportelli.it</a></p>'
     + '</div>';
 }
 function emailTesto(d) {
-  return 'Ecco il tuo scontrino e la mini guida.\n\nCocktail al giorno: ' + d.cocktail + '\nGiorni al mese: ' + d.giorni + '\nPrezzo medio: ' + euro(d.prezzo) + '\nAl mese: ' + euro(d.mese) + '\nTotale in 12 mesi: ' + euro(d.anno)
-    + '\n\nStima sul fatturato, non sul margine. È uno scenario, non una promessa di risultato.\n\nLa guida è in allegato. Se non la vedi, scaricala qui: ' + PDF_URL
-    + '\n\nPer prenotare la call conoscitiva di 30 minuti: ' + CALL_URL + '\n\nDaniel Sportelli\ninfo@danielsportelli.it';
+  return 'Ecco il vostro scontrino e la mini guida.\n\nCocktail al giorno: ' + d.cocktail + '\nGiorni al mese: ' + d.giorni + '\nPrezzo medio: ' + euro(d.prezzo) + '\nAl mese: ' + euro(d.mese) + '\nTotale in 12 mesi: ' + euro(d.anno)
+    + '\n\nStima sul fatturato, non sul margine. È uno scenario, non una promessa di risultato.\n\nLa guida è in allegato. Se non la vedete, scaricatela qui: ' + PDF_URL
+    + '\n\nPer prenotare la call conoscitiva di 30 minuti: ' + CALL_URL + '\nVi chiederò un numero di telefono: all\'orario scelto vi ricontatto io.\n\nDaniel Sportelli\ninfo@danielsportelli.it';
 }
 
 async function brevoMail(env, corpo) {
@@ -82,7 +82,7 @@ export default {
 
     // 1) email al visitatore: se fallisce, la pagina lo deve sapere
     try {
-      await brevoMail(env, { sender: MITTENTE, replyTo: MITTENTE, to: [{ email }], subject: 'Il tuo scontrino e la guida: il fatturato che manca',
+      await brevoMail(env, { sender: MITTENTE, replyTo: MITTENTE, to: [{ email }], subject: 'Il vostro scontrino e la guida: il fatturato che manca',
         htmlContent: emailHtml(d), textContent: emailTesto(d), attachment: [{ url: PDF_URL, name: 'Il-fatturato-che-manca.pdf' }] });
     } catch (e) { console.error(String(e)); return risposta({ ok: false }, 502, origin); }
 
